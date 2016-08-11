@@ -3,34 +3,33 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    Transform player;
+    public float smooth = 1.5f;         // The relative speed at which the camera will catch up.
+    public bool smoothMove = true;
 
-    float offsetY;
+    private Transform player;
+    private Vector3 newPos;
+    private float offsetY;
 
     // Use this for initialization
     void Start()
     {
-        GameObject player_go = GameObject.FindGameObjectWithTag("Player");
-
-        if (player_go == null)
-        {
-            Debug.LogError("Couldn't find an object with tag 'Player'!");
-            return;
-        }
-
-        player = player_go.transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;       
 
         offsetY = transform.position.y - player.position.y;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (player != null)
         {
-            Vector3 pos = transform.position;
-            pos.y = player.position.y + offsetY;
-            transform.position = pos;
+            newPos = transform.position;
+            newPos.y = player.position.y + offsetY;
+
+            if (smoothMove)
+                transform.position = Vector3.Lerp(transform.position, newPos, smooth * Time.deltaTime);
+            else
+                transform.position = newPos;
         }
     }
 }
