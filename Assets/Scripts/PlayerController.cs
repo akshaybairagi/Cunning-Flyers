@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Obstacle" && dead == false)
         {
-            dead = false;
+            dead = true;
 
             rb.AddForce(new Vector2(0, 2f) * Speed);
             rb.constraints = RigidbodyConstraints2D.None;

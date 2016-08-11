@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     private float offsetY;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;       
 
@@ -27,9 +27,13 @@ public class CameraController : MonoBehaviour
             newPos.y = player.position.y + offsetY;
 
             if (smoothMove)
+            {
                 transform.position = Vector3.Lerp(transform.position, newPos, smooth * Time.deltaTime);
+            }
             else
+            {
                 transform.position = newPos;
+            }
         }
     }
 }
