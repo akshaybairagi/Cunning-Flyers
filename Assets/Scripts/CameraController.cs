@@ -3,8 +3,6 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    public float smooth = 0.15f;         // The relative speed at which the camera will catch up.
-
     private Transform player;
     private Vector3 newPos;
     private float offsetY;
@@ -24,7 +22,6 @@ public class CameraController : MonoBehaviour
         {
             newPos = transform.position;
             newPos.y = player.position.y + offsetY;
-
             transform.position = newPos;
         }
     }
