@@ -3,8 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    public float smooth = 1.5f;         // The relative speed at which the camera will catch up.
-    public bool smoothMove = true;
+    public float smooth = 0.15f;         // The relative speed at which the camera will catch up.
 
     private Transform player;
     private Vector3 newPos;
@@ -19,21 +18,14 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (player != null)
         {
             newPos = transform.position;
             newPos.y = player.position.y + offsetY;
 
-            if (smoothMove)
-            {
-                transform.position = Vector3.Lerp(transform.position, newPos, smooth * Time.deltaTime);
-            }
-            else
-            {
-                transform.position = newPos;
-            }
+            transform.position = newPos;
         }
     }
 }
