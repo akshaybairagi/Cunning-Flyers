@@ -9,9 +9,6 @@ public class Looper : MonoBehaviour
     public int numOfObstacles = 6;
     public float stepLength = 7f;
 
-    int ObstacleLength;
-    float crateLength;
-
     Vector3 newPos;
 
     public Queue<GameObject> cratesPool;
@@ -23,8 +20,6 @@ public class Looper : MonoBehaviour
 
         //Init Obstacle Platforms
         GetObstacles();
-        ObstacleLength = 5;
-        crateLength = 0.25f;
     }
 
     //On Collision detection with Trigger
@@ -52,20 +47,8 @@ public class Looper : MonoBehaviour
             {
                 var obj = cratesPool.Dequeue();
                 obj.SetActive(true);
-                var objPos = obj.transform.position;
 
-                if (newPos.x < 0)
-                {
-                    objPos.x = newPos.x + ObstacleLength - crateLength;
-                    objPos.y = newPos.y + 1.5f;
-                }
-                else
-                {
-                    objPos.x = newPos.x;
-                    objPos.y = newPos.y + 1.5f;
-                }
-
-                obj.transform.position = objPos;
+                obj.transform.position = GetCratePosition(newPos);
             }
         }
 
@@ -91,31 +74,37 @@ public class Looper : MonoBehaviour
                 Instantiate(Obstacle, pos, Quaternion.identity);
             }
 
-
             //Insert PowerUp Crates
-            GetCrates(pos);
+            createCrate(pos);
         }
     }
     
 
-    private void GetCrates(Vector3 pos)
+    private void createCrate(Vector3 pos)
     {
-        var cratePos = Vector3.zero;
+        var position = GetCratePosition(pos);
+
+        Instantiate(Crate, position, Quaternion.identity);
+    }
+
+    private Vector3 GetCratePosition(Vector3 pos)
+    {
+        var newPos = Vector3.zero;
 
         if (pos.x > 0)
         {
-            cratePos.x = pos.x - 1.25f;
-            cratePos.y = pos.y + 3f;           
+            newPos.x = pos.x - 1.25f;
+            newPos.y = pos.y + 3f;           
         }
         else
         {
-            cratePos.x = pos.x + 1.25f;
-            cratePos.y = pos.y + 3f;
+            newPos.x = pos.x + 1.25f;
+            newPos.y = pos.y + 3f;
         }
 
-        cratePos.x = Random.Range(cratePos.x - 1f, cratePos.x + 1f);
-        cratePos.y = Random.Range(cratePos.y - 1.5f, cratePos.y + 1.5f);
+        newPos.x = Random.Range(newPos.x - 1f, newPos.x + 1f);
+        newPos.y = Random.Range(newPos.y - 1.5f, newPos.y + 1.5f);
 
-        Instantiate(Crate, cratePos, Quaternion.identity);
+        return newPos;
     }
 }

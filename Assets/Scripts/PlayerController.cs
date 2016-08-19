@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb;
 
     public float Speed = 1f;
+
+    public Looper looper;
 
     bool moveLeft = false;
     bool moveRight = false;
@@ -63,6 +65,25 @@ public class PlayerController : MonoBehaviour {
 
             rb.gravityScale = 1;
         }
+
+        if (collision.gameObject.tag == "Wall" && dead == false)
+        {
+            dead = true;
+
+            rb.AddForce(new Vector2(0, 2f) * Speed);
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.AddTorque(2f);
+
+            rb.gravityScale = 1;
+        }
     }
-    
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Crate" && dead == false)
+        {
+            looper.cratesPool.Enqueue(collider.gameObject);
+            collider.gameObject.SetActive(false);
+        }
+    }
 }
