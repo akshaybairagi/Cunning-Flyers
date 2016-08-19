@@ -132,7 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b6805f00af96740b977333bb168a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Obstacle: {fileID: 4000013916018170, guid: f8d10636c7a629e40a0b26cd13d789c1, type: 2}
+  Obstacle: {fileID: 1000010374172254, guid: f8d10636c7a629e40a0b26cd13d789c1, type: 2}
+  Crate: {fileID: 1000012033332090, guid: 429858d9628a2a949872e1144698e202, type: 2}
+  numOfObstacles: 6
+  stepLength: 7
 --- !u!61 &664220
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -275,7 +278,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.40652034, g: 0.75735295, b: 0.75735295, a: 1}
+  m_BackGroundColor: {r: 0.17306443, g: 0.60147566, b: 0.71323526, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -386,7 +389,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1543823222}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.006, y: 6.001, z: 0}
+  m_LocalPosition: {x: 0.007, y: 6.513, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -434,8 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b0293d5e88a044eb5835a8cad1fb20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 150
-  move: 0
+  Speed: 200
 --- !u!1 &1758566306
 GameObject:
   m_ObjectHideFlags: 0

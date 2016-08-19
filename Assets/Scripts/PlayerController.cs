@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour {
     bool moveLeft = false;
     bool moveRight = false;
 
-    public bool move = true;
-
     bool dead = false;
 
     // Use this for initialization
@@ -62,6 +60,8 @@ public class PlayerController : MonoBehaviour {
             rb.AddForce(new Vector2(0, 2f) * Speed);
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddTorque(2f);
+
+            rb.gravityScale = 1;
         }
     }
     
