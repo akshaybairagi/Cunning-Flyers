@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -13,6 +13,14 @@ public class PlayerController : MonoBehaviour {
     bool moveRight = false;
 
     bool dead = false;
+
+    private int score = 0;
+    private int highScore = 0;
+    private int coins = 0;
+
+    public Text scoreText;
+    public Text highScoreText;
+    public Text coinText;
 
     // Use this for initialization
     void Start () {
@@ -84,6 +92,15 @@ public class PlayerController : MonoBehaviour {
         {
             looper.cratesPool.Enqueue(collider.gameObject);
             collider.gameObject.SetActive(false);
+            UpdatePlayerStats();
         }
+    }
+
+    private void UpdatePlayerStats()
+    {
+        score++;
+        coins++;
+        scoreText.text = score.ToString();
+        coinText.text = coins.ToString() + "$";
     }
 }
