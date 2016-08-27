@@ -14,10 +14,6 @@ public class PlayerController : MonoBehaviour {
 
     bool dead = false;
 
-    private int score = 0;
-    private int highScore = 0;
-    private int coins = 0;
-
     public Text scoreText;
     public Text highScoreText;
     public Text coinText;
@@ -25,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
+        LoadPlayerStats();
     }
 
     // Update is called once per frame
@@ -70,8 +67,9 @@ public class PlayerController : MonoBehaviour {
             rb.AddForce(new Vector2(0, 2f) * Speed);
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddTorque(2f);
-
             rb.gravityScale = 1;
+
+            SavePlayerStats();
         }
 
         if (collision.gameObject.tag == "Wall" && dead == false)
@@ -81,8 +79,9 @@ public class PlayerController : MonoBehaviour {
             rb.AddForce(new Vector2(0, 2f) * Speed);
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddTorque(2f);
-
             rb.gravityScale = 1;
+
+            SavePlayerStats();
         }
     }
 
@@ -92,15 +91,41 @@ public class PlayerController : MonoBehaviour {
         {
             looper.cratesPool.Enqueue(collider.gameObject);
             collider.gameObject.SetActive(false);
+
             UpdatePlayerStats();
         }
     }
 
     private void UpdatePlayerStats()
     {
-        score++;
-        coins++;
-        scoreText.text = score.ToString();
-        coinText.text = coins.ToString() + "$";
+        GameController.control.score++;
+        GameController.control.coins++;
+
+        scoreText.text = GameController.control.score.ToString();
+        coinText.text = GameController.control.coins.ToString() + "$";  
+    }
+
+    private void LoadPlayerStats()
+    {
+        GameController.control.Load();
+        DisplayPlayerData();
+    }
+
+    private void SavePlayerStats()
+    {
+        if (GameController.control.score > GameController.control.highScore)
+        {
+            GameController.control.highScore = GameController.control.score;
+        }
+
+        DisplayPlayerData();
+        GameController.control.Save();
+    }
+
+    private void DisplayPlayerData()
+    {
+        scoreText.text = GameController.control.score.ToString();
+        highScoreText.text = "High " + GameController.control.highScore.ToString();
+        coinText.text = GameController.control.coins.ToString() + "$";
     }
 }
