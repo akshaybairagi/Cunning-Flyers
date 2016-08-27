@@ -11,12 +11,17 @@ public class PlayerController : MonoBehaviour {
 
     bool moveLeft = false;
     bool moveRight = false;
-
     bool dead = false;
 
     public Text scoreText;
     public Text highScoreText;
     public Text coinText;
+
+    public Text goScoreText;
+    public Text goHighText;
+
+    public Animator gameOverAnimator;
+    public Animator menuAnimator;
 
     // Use this for initialization
     void Start () {
@@ -69,7 +74,7 @@ public class PlayerController : MonoBehaviour {
             rb.AddTorque(2f);
             rb.gravityScale = 1;
 
-            SavePlayerStats();
+            GameOver();
         }
 
         if (collision.gameObject.tag == "Wall" && dead == false)
@@ -81,7 +86,7 @@ public class PlayerController : MonoBehaviour {
             rb.AddTorque(2f);
             rb.gravityScale = 1;
 
-            SavePlayerStats();
+            GameOver();
         }
     }
 
@@ -111,7 +116,14 @@ public class PlayerController : MonoBehaviour {
         DisplayPlayerData();
     }
 
-    private void SavePlayerStats()
+    private void DisplayPlayerData()
+    {
+        scoreText.text = GameController.control.score.ToString();
+        highScoreText.text = "High " + GameController.control.highScore.ToString();
+        coinText.text = GameController.control.coins.ToString() + "$";
+    }
+
+    private void GameOver()
     {
         if (GameController.control.score > GameController.control.highScore)
         {
@@ -119,13 +131,13 @@ public class PlayerController : MonoBehaviour {
         }
 
         DisplayPlayerData();
-        GameController.control.Save();
-    }
 
-    private void DisplayPlayerData()
-    {
-        scoreText.text = GameController.control.score.ToString();
-        highScoreText.text = "High " + GameController.control.highScore.ToString();
-        coinText.text = GameController.control.coins.ToString() + "$";
+        goScoreText.text = GameController.control.score.ToString();
+        goHighText.text = GameController.control.highScore.ToString();
+
+        gameOverAnimator.SetBool("IsActive", true);
+        menuAnimator.SetBool("IsActive", true);
+
+        GameController.control.Save();
     }
 }

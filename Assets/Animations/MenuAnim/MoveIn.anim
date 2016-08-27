@@ -41,13 +41,13 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: -429
-        inSlope: 312
-        outSlope: 312
+        inSlope: 243
+        outSlope: 243
         tangentMode: 10
       - time: 0.5
-        value: -273
-        inSlope: 312
-        outSlope: 312
+        value: -307.5
+        inSlope: 243
+        outSlope: 243
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -123,13 +123,13 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: -429
-        inSlope: 312
-        outSlope: 312
+        inSlope: 243
+        outSlope: 243
         tangentMode: 10
       - time: 0.5
-        value: -273
-        inSlope: 312
-        outSlope: 312
+        value: -307.5
+        inSlope: 243
+        outSlope: 243
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
