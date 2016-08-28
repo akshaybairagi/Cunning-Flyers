@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (player != null)
+        if (player != null && GameController.control.isDead == false)
         {
             newPos = transform.position;
             newPos.y = player.position.y + offsetY;

@@ -18,7 +18,7 @@ public class AdManager : MonoBehaviour {
         switch (result)
         {
             case ShowResult.Finished:
-                Debug.Log("Ad Finished");
+                GameController.control.ContinuePlay();
                 break;
 
             case ShowResult.Skipped:

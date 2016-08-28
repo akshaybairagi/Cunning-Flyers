@@ -13,6 +13,11 @@ public class GameController : MonoBehaviour {
     public int coins;
     public string fileName = "/playerInfo.dat";
 
+    public Vector3 lastPosition = Vector3.zero;
+
+    public bool isDead = false;
+    public bool contPlay = false;
+
 	// Use this for initialization
 	void Awake () {
         if(control == null)
@@ -55,6 +60,12 @@ public class GameController : MonoBehaviour {
             coins = data.coins;
         }
     }
+
+    public void ContinuePlay()
+    {
+        isDead = true;
+        contPlay = true;
+    }    
 }
 
 [Serializable]
