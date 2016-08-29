@@ -101,7 +101,7 @@ GameObject:
   - 222: {fileID: 81285861}
   - 114: {fileID: 81285860}
   m_Layer: 5
-  m_Name: Title_Image
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49762112, g: 0.74616057, b: 0.86764705, a: 1}
+  m_Color: {r: 0.59607846, g: 0.47843137, b: 0.46666667, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
