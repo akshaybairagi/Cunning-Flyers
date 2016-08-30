@@ -38,9 +38,9 @@ public class Looper : MonoBehaviour
             newPos.y -= stepLength * numOfObstacles;
 
             if (Random.Range(0, 2) == 0)
-                newPos.x = 3f;
+                newPos.x = 2f;
             else
-                newPos.x = -3f;
+                newPos.x = -2f;
 
             //Place the powerUps
             if (cratesPool.Count > 0 && Random.Range(0, 3) > 0)
@@ -65,12 +65,12 @@ public class Looper : MonoBehaviour
             //Insert Obstacles
             if (randomNo == 0)
             {
-                pos = new Vector3(3f, -stepLength * i - 10.5f, 0);
+                pos = new Vector3(2f, -stepLength * i - 10.5f, 0);
                 Instantiate(Obstacle, pos, Quaternion.identity);
             }
             else
             {
-                pos = new Vector3(-3f, -stepLength * i - 10.5f, 0);
+                pos = new Vector3(-2f, -stepLength * i - 10.5f, 0);
                 Instantiate(Obstacle, pos, Quaternion.identity);
             }
 
