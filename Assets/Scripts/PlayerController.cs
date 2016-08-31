@@ -48,19 +48,36 @@ public class PlayerController : MonoBehaviour {
             rb.angularVelocity = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
+        //if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
+        //{
+        //    if (moveLeft)
+        //    {
+        //        moveRight = true;
+        //        moveLeft = false;
+        //    }
+        //    else
+        //    {
+        //        moveRight = false;
+        //        moveLeft = true;
+        //    }
+        //}
+
+        if (SwipeManager.IsSwipingLeft())
         {
-            if (moveLeft)
-            {
-                moveRight = true;
-                moveLeft = false;
-            }
-            else
-            {
-                moveRight = false;
-                moveLeft = true;
-            }
-        }        
+            moveRight = true;
+            moveLeft = false;
+        }
+
+        if (SwipeManager.IsSwipingRight())
+        {
+            moveRight = false;
+            moveLeft = true;
+        }
+
+        if (SwipeManager.IsSwipingDown())
+        {
+
+        }
     }
 
     void FixedUpdate()
