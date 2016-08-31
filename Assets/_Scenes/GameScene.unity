@@ -723,7 +723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914563869ecfe884c862fe2e2b14c47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSwipeLength: 0.2
+  minSwipeLength: 0.5
   useEightDirections: 0
 --- !u!1 &793404240
 GameObject:

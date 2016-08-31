@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 
     bool moveLeft = false;
     bool moveRight = false;
+    bool moveDown = false;
 
     public Text scoreText;
     public Text highScoreText;
@@ -66,17 +67,21 @@ public class PlayerController : MonoBehaviour {
         {
             moveRight = true;
             moveLeft = false;
+            moveDown = false;
         }
 
         if (SwipeManager.IsSwipingRight())
         {
             moveRight = false;
             moveLeft = true;
+            moveDown = false;
         }
 
         if (SwipeManager.IsSwipingDown())
         {
-
+            moveRight = false;
+            moveLeft = false;
+            moveDown = true;
         }
     }
 
