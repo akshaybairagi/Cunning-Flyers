@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
+    //Player Movement
     private Rigidbody2D rb;
 
     public float Speed = 1f;
-
     public Looper looper;
 
     bool moveLeft = false;
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     bool moveDown = false;
     bool applyMoveForce = false;
 
+    //UI
     public Text scoreText;
     public Text highScoreText;
     public Text coinText;
@@ -21,9 +22,24 @@ public class PlayerController : MonoBehaviour {
     public Text goScoreText;
     public Text goHighText;
 
+    //Animation
     public Animator gameOverAnimator;
     public Animator menuAnimator;
     private Animator animator;
+
+    //Audio Clips
+    public AudioClip pickUpSound;
+    public AudioClip hitSound;
+    public AudioClip moveSound;
+
+    private AudioSource source;
+    private float volLowRange = .5f;
+    private float volHighRange = 1.0f;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     // Use this for initialization
     void Start () {
@@ -54,6 +70,9 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
         {
+            float vol = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(moveSound, vol);
+
             if (moveLeft)
             {
                 moveRight = true;
@@ -74,6 +93,9 @@ public class PlayerController : MonoBehaviour {
 
         if (SwipeManager.IsSwipingDown())
         {
+            float vol = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(moveSound, vol);
+
             moveRight = false;
             moveLeft = false;
             moveDown = true;
@@ -138,6 +160,9 @@ public class PlayerController : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Crate" && GameController.control.isDead == false)
         {
+            float vol = Random.Range(volLowRange, volHighRange);
+            source.PlayOneShot(pickUpSound, vol);
+
             looper.cratesPool.Enqueue(collider.gameObject);
             collider.gameObject.SetActive(false);
 
@@ -170,6 +195,9 @@ public class PlayerController : MonoBehaviour {
 
     private void GameOver()
     {
+        float vol = Random.Range(volLowRange, volHighRange);
+        source.PlayOneShot(hitSound, vol);
+
         Vector3 nextPos = transform.position;
 
         if(nextPos.x > 0)
