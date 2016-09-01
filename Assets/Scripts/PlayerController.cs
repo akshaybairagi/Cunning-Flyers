@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     bool moveLeft = false;
     bool moveRight = false;
     bool moveDown = false;
+    bool applyMoveForce = false;
 
     public Text scoreText;
     public Text highScoreText;
@@ -22,10 +23,12 @@ public class PlayerController : MonoBehaviour {
 
     public Animator gameOverAnimator;
     public Animator menuAnimator;
+    private Animator animator;
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         LoadPlayerStats();
     }
 
@@ -49,32 +52,24 @@ public class PlayerController : MonoBehaviour {
             rb.angularVelocity = 0f;
         }
 
-        //if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
-        //{
-        //    if (moveLeft)
-        //    {
-        //        moveRight = true;
-        //        moveLeft = false;
-        //    }
-        //    else
-        //    {
-        //        moveRight = false;
-        //        moveLeft = true;
-        //    }
-        //}
-
-        if (SwipeManager.IsSwipingLeft())
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
         {
-            moveRight = true;
-            moveLeft = false;
-            moveDown = false;
-        }
-
-        if (SwipeManager.IsSwipingRight())
-        {
-            moveRight = false;
-            moveLeft = true;
-            moveDown = false;
+            if (moveLeft)
+            {
+                moveRight = true;
+                moveLeft = false;
+                moveDown = false;
+                flip();
+                animator.SetInteger("AnimNo", 1);
+            }
+            else
+            {
+                moveRight = false;
+                moveLeft = true;
+                moveDown = false;
+                flip();
+                animator.SetInteger("AnimNo", 1);
+            }
         }
 
         if (SwipeManager.IsSwipingDown())
@@ -82,7 +77,9 @@ public class PlayerController : MonoBehaviour {
             moveRight = false;
             moveLeft = false;
             moveDown = true;
-        }
+            applyMoveForce = true;
+            animator.SetInteger("AnimNo", 0);
+        }        
     }
 
     void FixedUpdate()
@@ -96,6 +93,15 @@ public class PlayerController : MonoBehaviour {
             if (moveLeft)
             {
                 rb.AddForce(new Vector2(0.1f, 0) * Speed);
+            }
+            if (moveDown)
+            {
+                if (applyMoveForce)
+                {
+                    applyMoveForce = false;
+                    rb.velocity = Vector2.zero;
+                    rb.AddForce(new Vector2(0, -1f) * Speed);
+                }
             }
         }
     }
@@ -202,5 +208,12 @@ public class PlayerController : MonoBehaviour {
     private void UnPauseGame()
     {
         Time.timeScale = 1;
+    }
+
+    void flip()
+    {
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }

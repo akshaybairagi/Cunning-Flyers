@@ -142,6 +142,7 @@ public class SwipeManager : MonoBehaviour
     public static bool IsSwipingDownRight() { return IsSwipingDirection(Swipe.DownRight); }
     public static bool IsSwipingUpLeft() { return IsSwipingDirection(Swipe.UpLeft); }
     public static bool IsSwipingUpRight() { return IsSwipingDirection(Swipe.UpRight); }
+    public static bool IsSwipingNone() { return IsSwipingDirection(Swipe.None); }
 
     #region Helper Functions
 
@@ -156,7 +157,7 @@ public class SwipeManager : MonoBehaviour
                 firstPressPos = new Vector2(t.position.x, t.position.y);
             }
 
-            if (t.phase == TouchPhase.Moved)
+            if (t.phase == TouchPhase.Ended)
             {
                 secondPressPos = new Vector2(t.position.x, t.position.y);
                 return true;
