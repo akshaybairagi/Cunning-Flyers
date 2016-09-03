@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 
     //Animation
     public Animator gameOverAnimator;
+    public Animator statsAnimator;
     public Animator menuAnimator;
     private Animator animator;
 
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             transform.position = GameController.control.lastPosition;
             transform.rotation = Quaternion.Euler(Vector3.zero);
 
-            gameOverAnimator.SetBool("IsActive", false);
+            //gameOverAnimator.SetBool("IsActive", false);
             menuAnimator.SetBool("IsActive", false);
 
             rb.gravityScale = 0.6f;
@@ -191,6 +192,9 @@ public class PlayerController : MonoBehaviour {
         scoreText.text = GameController.control.score.ToString();
         highScoreText.text = "High " + GameController.control.highScore.ToString();
         coinText.text = GameController.control.coins.ToString() + "$";
+
+        goScoreText.text = GameController.control.score.ToString();
+        goHighText.text = GameController.control.highScore.ToString();
     }
 
     private void GameOver()
@@ -217,10 +221,7 @@ public class PlayerController : MonoBehaviour {
             GameController.control.highScore = GameController.control.score;
         }
 
-        DisplayPlayerData();
-
-        goScoreText.text = GameController.control.score.ToString();
-        goHighText.text = GameController.control.highScore.ToString();
+        DisplayPlayerData();        
 
         gameOverAnimator.SetBool("IsActive", true);
         menuAnimator.SetBool("IsActive", true);
