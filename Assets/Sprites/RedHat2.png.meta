@@ -1,21 +1,18 @@
 fileFormatVersion: 2
-guid: b584b417f8a9c304c81f3662a64ca2c6
-timeCreated: 1472728807
+guid: c222a0e054bb97246b2cd9765732f256
+timeCreated: 1472905459
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: RedHat_0
-    21300002: RedHat_1
-    21300004: RedHat_2
-    21300006: RedHat_3
-    21300008: RedHat_4
-    21300010: RedHat_5
-    21300012: RedHat_6
-    21300014: RedHat_7
-    21300016: RedHat_8
-    21300018: RedHat_9
-    21300020: RedHat_10
-    21300022: RedHat_11
+    21300000: RedHat2_0
+    21300002: RedHat2_1
+    21300004: RedHat2_2
+    21300006: RedHat2_3
+    21300008: RedHat2_4
+    21300010: RedHat2_5
+    21300012: RedHat2_6
+    21300014: RedHat2_7
+    21300016: RedHat2_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -65,7 +62,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RedHat_0
+      name: RedHat2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -78,7 +75,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_1
+      name: RedHat2_1
       rect:
         serializedVersion: 2
         x: 80
@@ -91,7 +88,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_2
+      name: RedHat2_2
       rect:
         serializedVersion: 2
         x: 160
@@ -104,7 +101,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_3
+      name: RedHat2_3
       rect:
         serializedVersion: 2
         x: 240
@@ -117,7 +114,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_4
+      name: RedHat2_4
       rect:
         serializedVersion: 2
         x: 320
@@ -130,7 +127,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_5
+      name: RedHat2_5
       rect:
         serializedVersion: 2
         x: 400
@@ -143,7 +140,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_6
+      name: RedHat2_6
       rect:
         serializedVersion: 2
         x: 480
@@ -156,7 +153,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_7
+      name: RedHat2_7
       rect:
         serializedVersion: 2
         x: 560
@@ -169,49 +166,10 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RedHat_8
+      name: RedHat2_8
       rect:
         serializedVersion: 2
         x: 640
-        y: 0
-        width: 80
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: RedHat_9
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 0
-        width: 80
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: RedHat_10
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 0
-        width: 80
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: RedHat_11
-      rect:
-        serializedVersion: 2
-        x: 880
         y: 0
         width: 80
         height: 80
