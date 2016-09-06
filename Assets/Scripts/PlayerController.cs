@@ -169,6 +169,11 @@ public class PlayerController : MonoBehaviour {
 
             UpdatePlayerStats();
         }
+
+        if (collider.gameObject.tag == "Training" && GameController.control.isDead == false)
+        {
+            collider.gameObject.GetComponent<Animator>().SetBool("IsActive", true);
+        }
     }
 
     private void UpdatePlayerStats()
@@ -219,12 +224,17 @@ public class PlayerController : MonoBehaviour {
         if (GameController.control.score > GameController.control.highScore)
         {
             GameController.control.highScore = GameController.control.score;
+
+            statsAnimator.SetBool("IsActive", true);
+        }
+        else
+        {
+            gameOverAnimator.SetBool("IsActive", true);
         }
 
-        DisplayPlayerData();        
-
-        gameOverAnimator.SetBool("IsActive", true);
         menuAnimator.SetBool("IsActive", true);
+
+        DisplayPlayerData();        
 
         GameController.control.Save();
     }
