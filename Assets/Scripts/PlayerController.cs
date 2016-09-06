@@ -47,6 +47,12 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         LoadPlayerStats();
+
+        if(GameController.control.trainingMode == true)
+        {
+            Speed = 120;
+            rb.gravityScale = 0.36f;
+        }
     }
 
     // Update is called once per frame
@@ -127,6 +133,7 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
+        
     }
 
     //On Collision detection
@@ -234,7 +241,12 @@ public class PlayerController : MonoBehaviour {
 
         menuAnimator.SetBool("IsActive", true);
 
-        DisplayPlayerData();        
+        DisplayPlayerData(); 
+        
+        if(GameController.control.trainingMode)
+        {
+            GameController.control.trainingMode = false;
+        }
 
         GameController.control.Save();
     }

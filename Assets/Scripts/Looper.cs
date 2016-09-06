@@ -6,6 +6,7 @@ public class Looper : MonoBehaviour
 
     public GameObject Obstacle;
     public GameObject Crate;
+    public GameObject training_Obstacle;
     public int numOfObstacles = 6;
     public float stepLength = 7f;
     public float defaultPos = 2f;
@@ -53,6 +54,28 @@ public class Looper : MonoBehaviour
             }
         }
 
+        if (collider.gameObject.tag == "Training")
+        {
+            newPos.y -= stepLength * numOfObstacles;
+
+            if (Random.Range(0, 2) == 0)
+                newPos.x = defaultPos;
+            else
+                newPos.x = -defaultPos;
+
+            //Place the powerUps
+            if (cratesPool.Count > 0 && Random.Range(0, 3) > 0)
+            {
+                var obj = cratesPool.Dequeue();
+                obj.SetActive(true);
+
+                obj.transform.position = GetCratePosition(newPos);
+            }
+
+            collider.gameObject.GetComponent<Animator>().SetBool("IsActive", false);
+            GameController.control.isDead = false;
+        }
+
         collider.transform.position = newPos;
     }
 
@@ -67,12 +90,19 @@ public class Looper : MonoBehaviour
             if (randomNo == 0)
             {
                 pos = new Vector3(defaultPos, -stepLength * i - 10.5f, 0);
-                Instantiate(Obstacle, pos, Quaternion.identity);
             }
             else
             {
                 pos = new Vector3(-defaultPos, -stepLength * i - 10.5f, 0);
+            }
+
+            if (GameController.control.trainingMode == false)
+            {
                 Instantiate(Obstacle, pos, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(training_Obstacle, pos, Quaternion.identity);
             }
 
             //Insert PowerUp Crates

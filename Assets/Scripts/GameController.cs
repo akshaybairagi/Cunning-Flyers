@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour {
     public bool isDead = false;
     public bool contPlay = false;
 
+    public bool trainingMode = false;
+
 	// Use this for initialization
 	void Awake () {
         if(control == null)
