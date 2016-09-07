@@ -12,12 +12,13 @@ public class TrainingScript : MonoBehaviour {
         if (GameController.control.trainingMode == true)
         {
             //transform.FindChild("Text").GetComponent<Text>().text = "Game";
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
     public void SetTrainingMode()
     {
+        gameObject.SetActive(false);
         GameController.control.trainingMode = true;
         GameController.control.isDead = false;
         SceneManager.LoadScene(sceneName);

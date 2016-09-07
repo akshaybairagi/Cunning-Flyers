@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -38,6 +39,12 @@ public class PlayerController : MonoBehaviour {
     private float volHighRange = 1.0f;
 
     private bool BeginPlay = false;
+
+    //Training Button
+    public Animator traningBtn;
+
+    //Start Tap Image
+    public GameObject startBtn;
 
     void Awake()
     {
@@ -79,16 +86,27 @@ public class PlayerController : MonoBehaviour {
             rb.angularVelocity = 0f;
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameController.control.trainingMode)
+            {
+                GameController.control.trainingMode = false;
+            }
+            SceneManager.LoadScene("StartScreen");
+        }
+
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
         {
             if(BeginPlay == false)
             {
                 BeginPlay = true;
                 StartPlay(true);
+                traningBtn.SetBool("IsActive", true);
+                if(GameController.control.trainingMode == false)
+                    startBtn.SetActive(false);
             }
 
             float vol = Random.Range(volLowRange, volHighRange);
-            source.PlayOneShot(moveSound, vol);
 
             if (moveLeft)
             {
@@ -106,6 +124,9 @@ public class PlayerController : MonoBehaviour {
                 flip();
                 animator.SetInteger("AnimNo", 1);
             }
+
+            if(GameController.control.isDead == false && BeginPlay == true)
+                source.PlayOneShot(moveSound, vol);
         }
 
         if (SwipeManager.IsSwipingDown())
@@ -287,8 +308,16 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            Speed = 200;
-            rb.gravityScale = 0.6f;
+            if (GameController.control.trainingMode == true)
+            {
+                Speed = 120;
+                rb.gravityScale = 0.36f;
+            }
+            else
+            {
+                Speed = 200;
+                rb.gravityScale = 0.6f;
+            }
         }
     }
 }
