@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour {
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
 
+    private bool BeginPlay = false;
+
     void Awake()
     {
         source = GetComponent<AudioSource>();
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour {
             Speed = 120;
             rb.gravityScale = 0.36f;
         }
+
+        StartPlay(false);
     }
 
     // Update is called once per frame
@@ -77,6 +81,12 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
         {
+            if(BeginPlay == false)
+            {
+                BeginPlay = true;
+                StartPlay(true);
+            }
+
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(moveSound, vol);
 
@@ -266,5 +276,19 @@ public class PlayerController : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    void StartPlay(bool play)
+    {
+        if (play == false)
+        {
+            Speed = 0;
+            rb.gravityScale = 0f;
+        }
+        else
+        {
+            Speed = 200;
+            rb.gravityScale = 0.6f;
+        }
     }
 }
