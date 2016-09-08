@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour {
 
     //Start Tap Image
     public GameObject startBtn;
+    private bool tapStartBtn = true;
+
+    //Training Bacl Button
+    public Animator backBtn;
 
     void Awake()
     {
@@ -102,8 +106,15 @@ public class PlayerController : MonoBehaviour {
                 BeginPlay = true;
                 StartPlay(true);
                 traningBtn.SetBool("IsActive", true);
-                if(GameController.control.trainingMode == false)
+                backBtn.SetBool("IsActive", true);
+
+                if (GameController.control.trainingMode == false)
+                {
                     startBtn.SetActive(false);
+                    backBtn.SetBool("IsActive", false);
+                }
+
+                startBtn.GetComponent<Animator>().SetBool("Tap", false);
             }
 
             float vol = Random.Range(volLowRange, volHighRange);
