@@ -45,10 +45,14 @@ public class PlayerController : MonoBehaviour {
 
     //Start Tap Image
     public GameObject startBtn;
+    private Animator startBtnAnimator;
     private bool tapStartBtn = true;
 
     //Training Bacl Button
     public Animator backBtn;
+
+    //Gameover collision object
+    private string gameOverObject;
 
     void Awake()
     {
@@ -59,6 +63,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        startBtnAnimator = startBtn.GetComponent<Animator>();
         LoadPlayerStats();
 
         if(GameController.control.trainingMode == true)
@@ -114,7 +119,7 @@ public class PlayerController : MonoBehaviour {
                     backBtn.SetBool("IsActive", false);
                 }
 
-                startBtn.GetComponent<Animator>().SetBool("Tap", false);
+                startBtnAnimator.SetBool("Tap", false);
             }
 
             float vol = Random.Range(volLowRange, volHighRange);
@@ -190,6 +195,7 @@ public class PlayerController : MonoBehaviour {
             rb.AddTorque(2f);
             rb.gravityScale = 1;
 
+            gameOverObject = "Obstacle";
             GameOver();
         }
 
@@ -202,6 +208,7 @@ public class PlayerController : MonoBehaviour {
             rb.AddTorque(2f);
             rb.gravityScale = 1;
 
+            gameOverObject = "Wall";
             GameOver();
         }
     }
