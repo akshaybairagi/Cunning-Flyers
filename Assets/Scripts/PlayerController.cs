@@ -50,9 +50,6 @@ public class PlayerController : MonoBehaviour {
     //Training Bacl Button
     public Animator backBtn;
 
-    //Gameover collision object
-    private string gameOverObject;
-
     void Awake()
     {
         source = GetComponent<AudioSource>();
