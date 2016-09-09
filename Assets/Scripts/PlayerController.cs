@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour {
     //Start Tap Image
     public GameObject startBtn;
     public Animator startBtnAnimator;
-    private bool tapStartBtn = true;
 
     //Training Bacl Button
     public Animator backBtn;
@@ -195,8 +194,7 @@ public class PlayerController : MonoBehaviour {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddTorque(2f);
             rb.gravityScale = 1;
-
-            gameOverObject = "Obstacle";
+            
             GameOver();
         }
 
@@ -208,8 +206,7 @@ public class PlayerController : MonoBehaviour {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.AddTorque(2f);
             rb.gravityScale = 1;
-
-            gameOverObject = "Wall";
+            
             GameOver();
         }
     }
