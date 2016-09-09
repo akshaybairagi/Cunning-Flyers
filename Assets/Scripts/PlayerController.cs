@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     //UI
     public Text scoreText;
     public Text highScoreText;
-    public Text coinText;
 
     public Text goScoreText;
     public Text goHighText;
@@ -235,10 +234,8 @@ public class PlayerController : MonoBehaviour {
     private void UpdatePlayerStats()
     {
         GameController.control.score++;
-        GameController.control.coins++;
 
-        scoreText.text = GameController.control.score.ToString();
-        coinText.text = GameController.control.coins.ToString() + "$";  
+        scoreText.text = GameController.control.score.ToString(); 
     }
 
     private void LoadPlayerStats()
@@ -252,7 +249,6 @@ public class PlayerController : MonoBehaviour {
     {
         scoreText.text = GameController.control.score.ToString();
         highScoreText.text = "High " + GameController.control.highScore.ToString();
-        coinText.text = GameController.control.coins.ToString() + "$";
 
         goScoreText.text = GameController.control.score.ToString();
         goHighText.text = GameController.control.highScore.ToString();
