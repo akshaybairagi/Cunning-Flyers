@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour {
     private void DisplayPlayerData()
     {
         scoreText.text = GameController.control.score.ToString();
-        highScoreText.text = "High " + GameController.control.highScore.ToString();
+        highScoreText.text = "Best " + GameController.control.highScore.ToString();
 
         goScoreText.text = GameController.control.score.ToString();
         goHighText.text = GameController.control.highScore.ToString();
