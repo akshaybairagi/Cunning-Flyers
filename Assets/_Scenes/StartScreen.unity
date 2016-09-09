@@ -632,5 +632,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73903cdf0ae1d65438583e93db440054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 2
+  seconds: 1
   sceneName: GameScene
