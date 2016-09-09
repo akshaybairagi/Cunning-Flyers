@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 
     //Start Tap Image
     public GameObject startBtn;
-    private Animator startBtnAnimator;
+    public Animator startBtnAnimator;
     private bool tapStartBtn = true;
 
     //Training Bacl Button
@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        startBtnAnimator = startBtn.GetComponent<Animator>();
         LoadPlayerStats();
 
         if(GameController.control.trainingMode == true)
@@ -116,15 +115,14 @@ public class PlayerController : MonoBehaviour {
             {
                 BeginPlay = true;
                 StartPlay(true);
-                traningBtn.SetBool("IsActive", true);
+                traningBtn.SetBool("IsActive", false);
                 backBtn.SetBool("IsActive", true);
 
                 if (GameController.control.trainingMode == false)
                 {
-                    startBtn.SetActive(false);
                     backBtn.SetBool("IsActive", false);
                 }
-
+                
                 startBtnAnimator.SetBool("Tap", false);
             }
 
