@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
+        
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -105,6 +106,12 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
         {
+            if(GameController.control.isPaused == true)
+            {
+                GameController.control.isPaused = false;
+                PauseManager.instance.UnPauseGame();
+            }
+
             if(BeginPlay == false)
             {
                 BeginPlay = true;
@@ -295,16 +302,7 @@ public class PlayerController : MonoBehaviour {
 
         GameController.control.Save();
     }
-
-    private void PauseGame()
-    {
-        Time.timeScale = 0;
-    }
-
-    private void UnPauseGame()
-    {
-        Time.timeScale = 1;
-    }
+    
 
     void flip()
     {

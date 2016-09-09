@@ -20,8 +20,10 @@ public class GameController : MonoBehaviour {
 
     public bool trainingMode = false;
 
-	// Use this for initialization
-	void Awake () {
+    public bool isPaused = false;
+
+    // Use this for initialization
+    void Awake () {
         if(control == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -67,7 +69,9 @@ public class GameController : MonoBehaviour {
     {
         isDead = true;
         contPlay = true;
-    }    
+    }  
+
+    
 }
 
 [Serializable]
