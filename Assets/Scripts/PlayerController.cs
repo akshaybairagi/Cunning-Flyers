@@ -22,17 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     private AudioSource source;
     private float volLowRange = .5f;
-    private float volHighRange = 1.0f;
-
-    //Training Button
-    public Animator traningBtn;
-
-    //Start Tap Image
-    public GameObject startBtn;
-    public Animator startBtnAnimator;
-
-    //Training Back Button
-    public Animator backBtn;
+    private float volHighRange = 1.0f;    
 
     // Use this for initialization
     void Start () {
@@ -159,8 +149,7 @@ public class PlayerController : MonoBehaviour {
 
                 UpdatePlayerStats();
             }
-        }
-        
+        }        
     }
 
     private void UpdatePlayerStats()
