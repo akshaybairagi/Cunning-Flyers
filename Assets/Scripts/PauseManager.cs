@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour {
 
     public GameObject pausePanel;
-
-    public Text resumeText;
 
     void OnApplicationPause(bool pauseStatus)
     {
@@ -18,8 +15,8 @@ public class PauseManager : MonoBehaviour {
 
     public void PauseGame()
     {
-        pausePanel.SetActive(true);
         GameController.instance.SetCurrentState(GameState.Pause);
+        pausePanel.SetActive(true);
         Time.timeScale = 0;
     }
     
@@ -39,9 +36,6 @@ public class PauseManager : MonoBehaviour {
         else
         {
             GameController.instance.SetCurrentState(GameController.instance.lastState);
-
-           // GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
-            //SceneManager.LoadScene("GameScene");
         }
     }
 }
