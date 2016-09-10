@@ -38,8 +38,10 @@ public class PauseManager : MonoBehaviour {
         }
         else
         {
-            GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
-            SceneManager.LoadScene("GameScene");
+            GameController.instance.SetCurrentState(GameController.instance.lastState);
+
+           // GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
+            //SceneManager.LoadScene("GameScene");
         }
     }
 }
