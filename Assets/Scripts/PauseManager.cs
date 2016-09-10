@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour {
 
     public GameObject pausePanel;
+
+    public Text resumeText;
 
     void OnApplicationPause(bool pauseStatus)
     {
@@ -16,12 +19,27 @@ public class PauseManager : MonoBehaviour {
     public void PauseGame()
     {
         pausePanel.SetActive(true);
+        GameController.instance.SetCurrentState(GameState.Pause);
         Time.timeScale = 0;
     }
     
     public void UnPauseGame()
     {
-        pausePanel.SetActive(false);
         Time.timeScale = 1;
+        pausePanel.SetActive(false);
+
+        if(GameController.instance.lastState == GameState.Play)
+        {
+            GameController.instance.SetCurrentState(GameState.Play);
+        }        
+        else if(GameController.instance.lastState == GameState.Training)
+        {
+            GameController.instance.SetCurrentState(GameState.Training);
+        }
+        else
+        {
+            GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
+            SceneManager.LoadScene("GameScene");
+        }
     }
 }
