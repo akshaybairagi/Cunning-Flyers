@@ -7,7 +7,7 @@ public class RetryScript : MonoBehaviour {
 
     public void ChangeScene()
     {
-        GameController.instance.isDead = false;
+        //GameController.instance.isDead = false;
         SceneManager.LoadScene(sceneName);
     }
 }

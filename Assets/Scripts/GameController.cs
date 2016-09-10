@@ -1,26 +1,33 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+// Game States
+public enum GameState {
+                            Splash,
+                            PauseBeforeStart,
+                            Training,TrainingBack,
+                            Play,
+                            Pause,Gameover,
+                            Restart,
+                            Exit
+                       }
+
 public class GameController : MonoBehaviour {
 
-    public static GameController instance;
+    public static GameController instance;    
+
+    //Current Game State
+    public GameState currentState;
+
+    //Time Since last state changed
+    float lastStateChange = 0.0f;
 
     public int score;
     public int highScore;
     public int coins;
     public string fileName = "/playerInfo.dat";
-
-    public Vector3 lastPosition = Vector3.zero;
-
-    public bool isDead = false;
-    public bool contPlay = false;
-
-    public bool trainingMode = false;
-
-    public bool isPaused = false;
 
     // Use this for initialization
     void Awake () {
@@ -34,6 +41,23 @@ public class GameController : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    void Start()
+    {
+        //Initialize Game State
+        SetCurrentState(GameState.Splash);
+    }
+
+    public void SetCurrentState(GameState state)
+    {
+        currentState = state;
+        lastStateChange = Time.time;
+    }
+
+    float GetStateElapsed()
+    {
+        return Time.time - lastStateChange;
+    }
 
     //Save data to binary file
     public void Save()
@@ -65,15 +89,13 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void ContinuePlay()
+    public void OnApplicationQuit()
     {
-        isDead = true;
-        contPlay = true;
-    }  
-
-    
+        instance = null;
+    }
 }
 
+//Saving Game Data to the phone disk
 [Serializable]
 class PlayerData
 {

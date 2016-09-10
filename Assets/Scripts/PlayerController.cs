@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
-    //Player Movement
+    //Player Movement & Physics
     private Rigidbody2D rb;
 
     public float Speed = 1f;
@@ -14,13 +14,6 @@ public class PlayerController : MonoBehaviour {
     bool moveRight = false;
     bool moveDown = false;
     bool applyMoveForce = false;
-
-    //UI
-    public Text scoreText;
-    public Text highScoreText;
-
-    public Text goScoreText;
-    public Text goHighText;
 
     //Animation
     public Animator gameOverAnimator;
@@ -37,8 +30,6 @@ public class PlayerController : MonoBehaviour {
     private float volLowRange = .5f;
     private float volHighRange = 1.0f;
 
-    private bool BeginPlay = false;
-
     //Training Button
     public Animator traningBtn;
 
@@ -46,135 +37,79 @@ public class PlayerController : MonoBehaviour {
     public GameObject startBtn;
     public Animator startBtnAnimator;
 
-    //Training Bacl Button
+    //Training Back Button
     public Animator backBtn;
-
-    void Awake()
-    {
-        source = GetComponent<AudioSource>();
-    }
 
     // Use this for initialization
     void Start () {
+        source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         LoadPlayerStats();
-
-        if(GameController.instance.trainingMode == true)
-        {
-            Speed = 120;
-            rb.gravityScale = 0.36f;
-        }
-
-        StartPlay(false);
+        setGameState();        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameController.instance.isDead == true && GameController.instance.contPlay == true)
+        if (GameController.instance.currentState == GameState.Play
+                || GameController.instance.currentState == GameState.Training)
         {
-            moveLeft = false;
-            moveRight = false;
-            GameController.instance.isDead = false;
-            GameController.instance.contPlay = false;
-            transform.position = GameController.instance.lastPosition;
-            transform.rotation = Quaternion.Euler(Vector3.zero);
 
-            //gameOverAnimator.SetBool("IsActive", false);
-            menuAnimator.SetBool("IsActive", false);
-
-            rb.gravityScale = 0.6f;
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
-        
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameController.instance.trainingMode)
+            if (InputManager.instance.currentInput == InputState.Tap)
             {
-                GameController.instance.trainingMode = false;
-            }
-            SceneManager.LoadScene("StartScreen");
-        }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
-        {
-            if(GameController.instance.isPaused == true)
-            {
-                GameController.instance.isPaused = false;
-                PauseManager.instance.UnPauseGame();
-            }
+                float vol = Random.Range(volLowRange, volHighRange);
 
-            if(BeginPlay == false)
-            {
-                BeginPlay = true;
-                StartPlay(true);                
-
-                backBtn.SetBool("IsActive", true);
-
-                if (GameController.instance.trainingMode == false)
+                if (moveLeft)
                 {
-                    traningBtn.SetBool("IsActive", true);
-                    backBtn.SetBool("IsActive", false);
+                    moveRight = true;
+                    moveLeft = false;
+                    moveDown = false;
+                    flip();
+                    animator.SetInteger("AnimNo", 1);
                 }
                 else
                 {
-                    traningBtn.SetBool("IsActive", false);
-                }                    
+                    moveRight = false;
+                    moveLeft = true;
+                    moveDown = false;
+                    flip();
+                    animator.SetInteger("AnimNo", 1);
+                }
 
-                startBtnAnimator.SetBool("Tap", false);
+                    source.PlayOneShot(moveSound, vol);
             }
 
-            float vol = Random.Range(volLowRange, volHighRange);
-
-            if (moveLeft)
+            if (InputManager.instance.currentInput == InputState.SwipeDown)
             {
-                moveRight = true;
-                moveLeft = false;
-                moveDown = false;
-                flip();
-                animator.SetInteger("AnimNo", 1);
-            }
-            else
-            {
-                moveRight = false;
-                moveLeft = true;
-                moveDown = false;
-                flip();
-                animator.SetInteger("AnimNo", 1);
-            }
-
-            if(GameController.instance.isDead == false && BeginPlay == true)
+                float vol = Random.Range(volLowRange, volHighRange);
                 source.PlayOneShot(moveSound, vol);
-        }
 
-        if (SwipeManager.IsSwipingDown())
-        {
-            float vol = Random.Range(volLowRange, volHighRange);
-            source.PlayOneShot(moveSound, vol);
-
-            moveRight = false;
-            moveLeft = false;
-            moveDown = true;
-            applyMoveForce = true;
-            animator.SetInteger("AnimNo", 0);
-        }        
+                moveRight = false;
+                moveLeft = false;
+                moveDown = true;
+                applyMoveForce = true;
+                animator.SetInteger("AnimNo", 0);
+            }
+        }  
     }
 
     void FixedUpdate()
     {
-        if (GameController.instance.isDead == false)
+        if (GameController.instance.currentState == GameState.Play 
+                || GameController.instance.currentState == GameState.Training)
         {
             if (moveRight)
             {
                 rb.AddForce(new Vector2(-0.1f, 0) * Speed);
             }
+
             if (moveLeft)
             {
                 rb.AddForce(new Vector2(0.1f, 0) * Speed);
             }
+
             if (moveDown)
             {
                 if (applyMoveForce)
@@ -184,6 +119,7 @@ public class PlayerController : MonoBehaviour {
                     rb.AddForce(new Vector2(0, -1f) * Speed);
                 }
             }
+
         }
         
     }
@@ -191,47 +127,53 @@ public class PlayerController : MonoBehaviour {
     //On Collision detection
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle" && GameController.instance.isDead == false)
+        if (GameController.instance.currentState == GameState.Play
+                || GameController.instance.currentState == GameState.Training)
         {
-            GameController.instance.isDead = true;
+            if (collision.gameObject.tag == "Obstacle")
+            {
+                rb.AddForce(new Vector2(0, 2f) * Speed);
+                rb.constraints = RigidbodyConstraints2D.None;
+                rb.AddTorque(2f);
+                rb.gravityScale = 1;
 
-            rb.AddForce(new Vector2(0, 2f) * Speed);
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.AddTorque(2f);
-            rb.gravityScale = 1;
-            
-            GameOver();
-        }
+                GameController.instance.SetCurrentState(GameState.Gameover);
+                GameOver();
+            }
 
-        if (collision.gameObject.tag == "Wall" && GameController.instance.isDead == false)
-        {
-            GameController.instance.isDead = true;
+            if (collision.gameObject.tag == "Wall")
+            {
+                rb.AddForce(new Vector2(0, 2f) * Speed);
+                rb.constraints = RigidbodyConstraints2D.None;
+                rb.AddTorque(2f);
+                rb.gravityScale = 1;
 
-            rb.AddForce(new Vector2(0, 2f) * Speed);
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.AddTorque(2f);
-            rb.gravityScale = 1;
-            
-            GameOver();
+                GameController.instance.SetCurrentState(GameState.Gameover);
+                GameOver();
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Crate" && GameController.instance.isDead == false)
+        if (GameController.instance.currentState == GameState.Play
+                || GameController.instance.currentState == GameState.Training)
         {
-            float vol = Random.Range(volLowRange, volHighRange);
-            source.PlayOneShot(pickUpSound, vol);
+            if (collider.gameObject.tag == "Crate")
+            {
+                float vol = Random.Range(volLowRange, volHighRange);
+                source.PlayOneShot(pickUpSound, vol);
 
-            looper.cratesPool.Enqueue(collider.gameObject);
-            collider.gameObject.SetActive(false);
+                looper.cratesPool.Enqueue(collider.gameObject);
+                collider.gameObject.SetActive(false);
 
-            UpdatePlayerStats();
-        }
+                UpdatePlayerStats();
+            }
 
-        if (collider.gameObject.tag == "Training" && GameController.instance.isDead == false)
-        {
-            collider.gameObject.GetComponent<Animator>().SetBool("IsActive", true);
+            if (collider.gameObject.tag == "Training")
+            {
+                collider.gameObject.GetComponent<Animator>().SetBool("IsActive", true);
+            }
         }
     }
 
@@ -239,43 +181,19 @@ public class PlayerController : MonoBehaviour {
     {
         GameController.instance.score++;
 
-        scoreText.text = GameController.instance.score.ToString(); 
+        //scoreText.text = GameController.instance.score.ToString(); 
     }
 
     private void LoadPlayerStats()
     {
         GameController.instance.score = 0;
         GameController.instance.Load();
-        DisplayPlayerData();
-    }
-
-    private void DisplayPlayerData()
-    {
-        scoreText.text = GameController.instance.score.ToString();
-        highScoreText.text = "Best " + GameController.instance.highScore.ToString();
-
-        goScoreText.text = GameController.instance.score.ToString();
-        goHighText.text = GameController.instance.highScore.ToString();
     }
 
     private void GameOver()
     {
         float vol = Random.Range(volLowRange, volHighRange);
         source.PlayOneShot(hitSound, vol);
-
-        Vector3 nextPos = transform.position;
-
-        if(nextPos.x > 0)
-        {
-            nextPos.x = -2f;
-        }
-        else
-        {
-            nextPos.x = 2f;
-        }
-
-        GameController.instance.lastPosition = nextPos;
-        GameController.instance.isDead = true;
 
         if (GameController.instance.score > GameController.instance.highScore)
         {
@@ -290,43 +208,37 @@ public class PlayerController : MonoBehaviour {
 
         menuAnimator.SetBool("IsActive", true);
 
-        DisplayPlayerData(); 
-        
-        if(GameController.instance.trainingMode)
-        {
-            GameController.instance.trainingMode = false;
-        }
-
         GameController.instance.Save();
     }
-    
+
+    void setGameState()
+    {
+        switch (GameController.instance.currentState)
+        {
+            case GameState.Training:
+                Speed = 120;
+                rb.gravityScale = 0.36f;
+                break;
+
+            case GameState.Play:
+                Speed = 200;
+                rb.gravityScale = 0.6f;
+                break;
+
+            case GameState.PauseBeforeStart:
+                Speed = 0;
+                rb.gravityScale = 0f;
+                break;
+
+            default:
+                break;
+        }
+    }
 
     void flip()
     {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
-
-    void StartPlay(bool play)
-    {
-        if (play == false)
-        {
-            Speed = 0;
-            rb.gravityScale = 0f;
-        }
-        else
-        {
-            if (GameController.instance.trainingMode == true)
-            {
-                Speed = 120;
-                rb.gravityScale = 0.36f;
-            }
-            else
-            {
-                Speed = 200;
-                rb.gravityScale = 0.6f;
-            }
-        }
     }
 }
