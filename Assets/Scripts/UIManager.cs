@@ -34,7 +34,10 @@ public class UIManager : MonoBehaviour {
 
     void Start()
     {
-        MenuController(GameState.PauseBeforeStart);
+        if(GameController.instance.currentState != GameState.Training)
+            MenuController(GameState.PauseBeforeStart);
+        else
+            MenuController(GameState.Training);
     }
 
     public void UpdatePlayerStats()
@@ -53,6 +56,7 @@ public class UIManager : MonoBehaviour {
 
             case GameState.Training:
                 traningPanel.SetBool("IsActive", false);
+                backBtn.SetBool("IsActive", true);
                 break;
 
             case GameState.TrainingBack:
