@@ -17,11 +17,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (player != null)
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
         {
-            newPos = transform.position;
-            newPos.y = player.position.y + offsetY;
-            transform.position = newPos;
-        }    
+            if (player != null)
+            {
+                newPos = transform.position;
+                newPos.y = player.position.y + offsetY;
+                transform.position = newPos;
+            }
+        }
     }
 }

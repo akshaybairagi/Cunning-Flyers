@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        setGameState();
+
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
+        {
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
             {
                 float vol = Random.Range(volLowRange, volHighRange);
@@ -76,11 +81,15 @@ public class PlayerController : MonoBehaviour {
                 moveDown = true;
                 applyMoveForce = true;
             }
+        }
          
     }
 
     void FixedUpdate()
     {
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
+        {
             if (moveRight)
             {
                 rb.AddForce(new Vector2(-0.1f, 0) * Speed);
@@ -100,12 +109,16 @@ public class PlayerController : MonoBehaviour {
                     rb.AddForce(new Vector2(0, -1f) * Speed);
                 }
             }
+        }
         
     }
 
     //On Collision detection
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
+        {
             if (collision.gameObject.tag == "Obstacle")
             {
                 rb.AddForce(new Vector2(0, 2f) * Speed);
@@ -127,10 +140,14 @@ public class PlayerController : MonoBehaviour {
                 GameController.instance.SetCurrentState(GameState.Gameover);
                 GameOver();
             }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
+        {
             if (collider.gameObject.tag == "Crate")
             {
                 float vol = Random.Range(volLowRange, volHighRange);
@@ -141,6 +158,7 @@ public class PlayerController : MonoBehaviour {
 
                 UpdatePlayerStats();
             }
+        }
         
     }
 
@@ -188,8 +206,8 @@ public class PlayerController : MonoBehaviour {
                 break;
 
             default:
-                Speed = 0;
-                rb.gravityScale = 0f;
+                Speed = 200;
+                rb.gravityScale = 1f;
                 break;
         }
     }
