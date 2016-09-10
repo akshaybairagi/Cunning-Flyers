@@ -67,17 +67,19 @@ public class UIManager : MonoBehaviour {
                 break;
 
             case GameState.Gameover:
+
                 menuPanel.SetBool("IsActive", true);
-                gameOverPanel.SetBool("IsActive", true);
-                break;
 
-            case GameState.Pause:
-                break;
-
-            case GameState.Restart:
-                break;
-
-            case GameState.Escape:
+                if (GameController.instance.score == GameController.instance.highScore
+                        && GameController.instance.highScore > 2)
+                {
+                    statsPanel.SetBool("IsActive", true);
+                }
+                else
+                {
+                    gameOverPanel.SetBool("IsActive", true);
+                }
+                    
                 break;
 
             default:
