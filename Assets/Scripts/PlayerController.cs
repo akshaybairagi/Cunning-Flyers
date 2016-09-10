@@ -124,7 +124,6 @@ public class PlayerController : MonoBehaviour {
                 rb.AddTorque(2f);
                 rb.gravityScale = 1;
 
-                GameController.instance.SetCurrentState(GameState.Gameover);
                 GameOver();
             }
 
@@ -135,7 +134,6 @@ public class PlayerController : MonoBehaviour {
                 rb.AddTorque(2f);
                 rb.gravityScale = 1;
 
-                GameController.instance.SetCurrentState(GameState.Gameover);
                 GameOver();
             }
         }
@@ -181,10 +179,14 @@ public class PlayerController : MonoBehaviour {
             GameController.instance.highScore = GameController.instance.score;
         }
 
-        GameController.instance.Save();
+        //Save only when in Playing State
+        if(GameController.instance.currentState == GameState.Play )
+            GameController.instance.Save();
 
         UIManager.instance.UpdatePlayerStats();
+        GameController.instance.SetCurrentState(GameState.Gameover);
         UIManager.instance.MenuController(GameState.Gameover);
+
     }
 
     void setGameState()
