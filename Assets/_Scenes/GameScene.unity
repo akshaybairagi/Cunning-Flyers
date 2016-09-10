@@ -385,6 +385,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1716280388}
   highScoreText: {fileID: 1535423104}
+  startBtnAnimator: {fileID: 259582256}
+  backBtn: {fileID: 852987737}
+  traningPanel: {fileID: 433777430}
+  menuPanel: {fileID: 1744111157}
+  gameOverPanel: {fileID: 384003602}
+  statsPanel: {fileID: 740899517}
 --- !u!1 &201173232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,10 +2690,6 @@ MonoBehaviour:
   pickUpSound: {fileID: 8300000, guid: 1023cba067f64e74fb5c7762c123bece, type: 3}
   hitSound: {fileID: 8300000, guid: fac01df67989dd14b84653194f0ed897, type: 3}
   moveSound: {fileID: 8300000, guid: 0c0a859b76dd33b4aaeeba5d8b3d4867, type: 3}
-  traningBtn: {fileID: 433777430}
-  startBtn: {fileID: 0}
-  startBtnAnimator: {fileID: 259582256}
-  backBtn: {fileID: 852987737}
 --- !u!82 &1543823229
 AudioSource:
   m_ObjectHideFlags: 0

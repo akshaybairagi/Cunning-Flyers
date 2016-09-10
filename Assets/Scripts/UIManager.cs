@@ -11,14 +11,17 @@ public class UIManager : MonoBehaviour {
 
 
     //PauseBeforeStart 
-    public GameObject startBtn;
     public Animator startBtnAnimator;
 
     //Training Back Button
     public Animator backBtn;
 
     //Training Button
-    public Animator traningBtn;
+    public Animator traningPanel;
+
+    public Animator menuPanel;
+    public Animator gameOverPanel;
+    public Animator statsPanel;
 
     // Use this for initialization
     void Awake()
@@ -27,6 +30,11 @@ public class UIManager : MonoBehaviour {
         {
             instance = this;
         }
+    }
+
+    void Start()
+    {
+        MenuController(GameState.PauseBeforeStart);
     }
 
     public void UpdatePlayerStats()
@@ -40,21 +48,24 @@ public class UIManager : MonoBehaviour {
         switch (state)
         {
             case GameState.PauseBeforeStart:
-
+                    traningPanel.SetBool("IsActive", true);
                 break;
 
             case GameState.Training:
+                traningPanel.SetBool("IsActive", false);
                 break;
 
             case GameState.TrainingBack:
                 break;
 
             case GameState.Play:
+                traningPanel.SetBool("IsActive", false);
                 break;
 
             case GameState.Gameover:
+                menuPanel.SetBool("IsActive", true);
+                gameOverPanel.SetBool("IsActive", true);
                 break;
-
 
             case GameState.Pause:
                 break;

@@ -62,6 +62,7 @@ public class GameController : MonoBehaviour {
                 if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
                 {
                     SetCurrentState(GameState.Play);
+                    UIManager.instance.MenuController(GameState.Play);
                 }
 
                 break;

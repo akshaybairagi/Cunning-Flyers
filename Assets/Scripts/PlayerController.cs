@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
     public AudioClip moveSound;
 
     private AudioSource source;
-    private float volLowRange = .5f;
+    private float volLowRange = 0.5f;
     private float volHighRange = 1.0f;    
 
     // Use this for initialization
@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour {
         GameController.instance.Save();
 
         UIManager.instance.UpdatePlayerStats();
+        UIManager.instance.MenuController(GameState.Gameover);
     }
 
     void setGameState()
