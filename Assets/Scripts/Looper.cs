@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 public class Looper : MonoBehaviour
 {
-
+    //Gameplay Prefabs
     public GameObject Obstacle;
     public GameObject Crate;
     public GameObject training_Obstacle;
+
     public int numOfObstacles = 6;
     public float stepLength = 7f;
     public float defaultPos = 2f;
@@ -95,13 +96,13 @@ public class Looper : MonoBehaviour
                 pos = new Vector3(-defaultPos, -stepLength * i - 10.5f, 0);
             }
 
-            if (GameController.instance.currentState == GameState.Play)
+            if (GameController.instance.currentState == GameState.Training)
             {
-                Instantiate(Obstacle, pos, Quaternion.identity);
+                Instantiate(training_Obstacle, pos, Quaternion.identity);
             }
             else
             {
-                Instantiate(training_Obstacle, pos, Quaternion.identity);
+                Instantiate(Obstacle, pos, Quaternion.identity);
             }
 
             //Insert PowerUp Crates

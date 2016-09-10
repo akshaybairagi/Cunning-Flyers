@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
@@ -20,13 +19,9 @@ public class CameraController : MonoBehaviour
     {
         if (player != null)
         {
-            if (GameController.instance.currentState == GameState.Play
-                || GameController.instance.currentState == GameState.Training)
-            {
-                newPos = transform.position;
-                newPos.y = player.position.y + offsetY;
-                transform.position = newPos;
-            }
-        }
+            newPos = transform.position;
+            newPos.y = player.position.y + offsetY;
+            transform.position = newPos;
+        }    
     }
 }

@@ -4,15 +4,16 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 // Game States
-public enum GameState {
-                            Splash,
-                            PauseBeforeStart,
-                            Training,TrainingBack,
-                            Play,
-                            Pause,Gameover,
-                            Restart,
-                            Exit
-                       }
+public enum GameState
+{
+    Splash,
+    PauseBeforeStart,
+    Training,TrainingBack,
+    Play,
+    Pause,Gameover,
+    Restart,
+    Exit
+}
 
 public class GameController : MonoBehaviour {
 
@@ -21,16 +22,19 @@ public class GameController : MonoBehaviour {
     //Current Game State
     public GameState currentState;
 
+    public GameState lastState;
+
     //Time Since last state changed
     float lastStateChange = 0.0f;
+    
 
     public int score;
     public int highScore;
-    public int coins;
     public string fileName = "/playerInfo.dat";
 
     // Use this for initialization
-    void Awake () {
+    void Awake ()
+    {
         if(instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -48,8 +52,28 @@ public class GameController : MonoBehaviour {
         SetCurrentState(GameState.Splash);
     }
 
+    void Update()
+    {
+        switch (currentState)
+        {
+            case GameState.PauseBeforeStart:
+                
+                if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
+                {
+                    SetCurrentState(GameState.Play);
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
+    
+
     public void SetCurrentState(GameState state)
     {
+        lastState = currentState;
         currentState = state;
         lastStateChange = Time.time;
     }
@@ -67,7 +91,6 @@ public class GameController : MonoBehaviour {
 
         PlayerData data = new PlayerData();
         data.highScore = highScore;
-        data.coins = coins;
 
         bf.Serialize(file, data);
         file.Close();
@@ -85,13 +108,13 @@ public class GameController : MonoBehaviour {
             file.Close();
             
             highScore = data.highScore;
-            coins = data.coins;
         }
     }
 
+    //On Quiting app delete the instance
     public void OnApplicationQuit()
     {
-        instance = null;
+        //instance = null;
     }
 }
 
@@ -100,5 +123,4 @@ public class GameController : MonoBehaviour {
 class PlayerData
 {
     public int highScore;
-    public int coins;
 }

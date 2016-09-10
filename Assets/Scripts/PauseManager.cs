@@ -14,16 +14,16 @@ public class PauseManager : MonoBehaviour {
     }
 
     void OnApplicationPause(bool pauseStatus)
-    {
-        //GameController.instance.isPaused = pauseStatus;
+    {        
         if (pauseStatus == true)
+        {
             PauseGame();
+        }
     }
 
     public void UnPauseGame()
     {
         pausePanel.SetActive(false);
-        //GameController.instance.isPaused = false;
         Time.timeScale = 1;
     }
 }

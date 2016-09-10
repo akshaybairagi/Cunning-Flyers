@@ -14,8 +14,8 @@ public class ScrollerScript : MonoBehaviour {
     private Vector3 newPos;
 
     // Use this for initialization
-    void Start () {
-
+    void Start ()
+    {
         speed = new float[transform.childCount];
 
         for (int i = 0; i < transform.childCount; i++)
@@ -25,8 +25,8 @@ public class ScrollerScript : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        
+	void Update ()
+    {        
         for (int i = 0; i < transform.childCount; i++)
         {
             newPos = transform.GetChild(i).position;
@@ -39,8 +39,7 @@ public class ScrollerScript : MonoBehaviour {
                 ChangeCloudSprite(transform.GetChild(i).gameObject);
             }                
 
-            transform.GetChild(i).position = newPos;
-            
+            transform.GetChild(i).position = newPos;            
         }
     }
 

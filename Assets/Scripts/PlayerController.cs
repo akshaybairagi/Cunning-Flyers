@@ -15,12 +15,6 @@ public class PlayerController : MonoBehaviour {
     bool moveDown = false;
     bool applyMoveForce = false;
 
-    //Animation
-    public Animator gameOverAnimator;
-    public Animator statsAnimator;
-    public Animator menuAnimator;
-    private Animator animator;
-
     //Audio Clips
     public AudioClip pickUpSound;
     public AudioClip hitSound;
@@ -44,21 +38,14 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        LoadPlayerStats();
-        setGameState();        
+        LoadPlayerStats();      
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameController.instance.currentState == GameState.Play
-                || GameController.instance.currentState == GameState.Training)
-        {
-
-            if (InputManager.instance.currentInput == InputState.Tap)
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
             {
-
                 float vol = Random.Range(volLowRange, volHighRange);
 
                 if (moveLeft)
@@ -67,7 +54,6 @@ public class PlayerController : MonoBehaviour {
                     moveLeft = false;
                     moveDown = false;
                     flip();
-                    animator.SetInteger("AnimNo", 1);
                 }
                 else
                 {
@@ -75,13 +61,12 @@ public class PlayerController : MonoBehaviour {
                     moveLeft = true;
                     moveDown = false;
                     flip();
-                    animator.SetInteger("AnimNo", 1);
                 }
 
-                    source.PlayOneShot(moveSound, vol);
+                source.PlayOneShot(moveSound, vol);
             }
 
-            if (InputManager.instance.currentInput == InputState.SwipeDown)
+            if (SwipeManager.IsSwipingDown())
             {
                 float vol = Random.Range(volLowRange, volHighRange);
                 source.PlayOneShot(moveSound, vol);
@@ -90,16 +75,12 @@ public class PlayerController : MonoBehaviour {
                 moveLeft = false;
                 moveDown = true;
                 applyMoveForce = true;
-                animator.SetInteger("AnimNo", 0);
             }
-        }  
+         
     }
 
     void FixedUpdate()
     {
-        if (GameController.instance.currentState == GameState.Play 
-                || GameController.instance.currentState == GameState.Training)
-        {
             if (moveRight)
             {
                 rb.AddForce(new Vector2(-0.1f, 0) * Speed);
@@ -119,17 +100,12 @@ public class PlayerController : MonoBehaviour {
                     rb.AddForce(new Vector2(0, -1f) * Speed);
                 }
             }
-
-        }
         
     }
 
     //On Collision detection
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GameController.instance.currentState == GameState.Play
-                || GameController.instance.currentState == GameState.Training)
-        {
             if (collision.gameObject.tag == "Obstacle")
             {
                 rb.AddForce(new Vector2(0, 2f) * Speed);
@@ -151,14 +127,10 @@ public class PlayerController : MonoBehaviour {
                 GameController.instance.SetCurrentState(GameState.Gameover);
                 GameOver();
             }
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (GameController.instance.currentState == GameState.Play
-                || GameController.instance.currentState == GameState.Training)
-        {
             if (collider.gameObject.tag == "Crate")
             {
                 float vol = Random.Range(volLowRange, volHighRange);
@@ -169,19 +141,12 @@ public class PlayerController : MonoBehaviour {
 
                 UpdatePlayerStats();
             }
-
-            if (collider.gameObject.tag == "Training")
-            {
-                collider.gameObject.GetComponent<Animator>().SetBool("IsActive", true);
-            }
-        }
+        
     }
 
     private void UpdatePlayerStats()
     {
         GameController.instance.score++;
-
-        //scoreText.text = GameController.instance.score.ToString(); 
     }
 
     private void LoadPlayerStats()
@@ -198,15 +163,7 @@ public class PlayerController : MonoBehaviour {
         if (GameController.instance.score > GameController.instance.highScore)
         {
             GameController.instance.highScore = GameController.instance.score;
-
-            statsAnimator.SetBool("IsActive", true);
         }
-        else
-        {
-            gameOverAnimator.SetBool("IsActive", true);
-        }
-
-        menuAnimator.SetBool("IsActive", true);
 
         GameController.instance.Save();
     }
@@ -231,6 +188,8 @@ public class PlayerController : MonoBehaviour {
                 break;
 
             default:
+                Speed = 0;
+                rb.gravityScale = 0f;
                 break;
         }
     }
