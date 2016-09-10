@@ -9,6 +9,10 @@ public class UIManager : MonoBehaviour {
     public Text scoreText;
     public Text highScoreText;
 
+    //GameoverPanel and Stats Panel
+    public Text goScoreText;
+    public Text goHighScoreText;
+
 
     //PauseBeforeStart 
     public Animator startBtnAnimator;
@@ -71,12 +75,15 @@ public class UIManager : MonoBehaviour {
                 menuPanel.SetBool("IsActive", true);
 
                 if (GameController.instance.score == GameController.instance.highScore
-                        && GameController.instance.highScore > 2)
+                        && GameController.instance.highScore > 5)
                 {
+                    goHighScoreText.text = GameController.instance.score.ToString();
                     statsPanel.SetBool("IsActive", true);
+
                 }
                 else
                 {
+                    goScoreText.text = GameController.instance.score.ToString();
                     gameOverPanel.SetBool("IsActive", true);
                 }
                     
