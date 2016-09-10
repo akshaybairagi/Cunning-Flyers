@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour {
             case GameState.Restart:
                 break;
 
-            case GameState.Exit:
+            case GameState.Escape:
                 break;
 
             default:

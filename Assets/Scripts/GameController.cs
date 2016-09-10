@@ -13,7 +13,7 @@ public enum GameState
     Play,
     Pause,Gameover,
     Restart,
-    Exit
+    Escape
 }
 
 public class GameController : MonoBehaviour {
@@ -55,6 +55,12 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
+        //Check for back button on mobile phone 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetCurrentState(GameState.Escape);
+        }
+
         switch (currentState)
         {
             case GameState.PauseBeforeStart:
@@ -74,6 +80,20 @@ public class GameController : MonoBehaviour {
                 if (scene.name == "GameScene")
                 {
                     SetCurrentState(GameState.PauseBeforeStart);
+                }
+
+                break;
+
+            case GameState.Escape:
+
+                if (lastState == GameState.Play || lastState == GameState.Training)
+                {
+                    SetCurrentState(GameState.Gameover);
+                    UIManager.instance.MenuController(GameState.Gameover);
+                }
+                else
+                {
+                    Application.Quit();
                 }
 
                 break;
