@@ -73,7 +73,7 @@ public class Looper : MonoBehaviour
             }
 
             collider.gameObject.GetComponent<Animator>().SetBool("IsActive", false);
-            GameController.control.isDead = false;
+            GameController.instance.isDead = false;
         }
 
         collider.transform.position = newPos;
@@ -96,7 +96,7 @@ public class Looper : MonoBehaviour
                 pos = new Vector3(-defaultPos, -stepLength * i - 10.5f, 0);
             }
 
-            if (GameController.control.trainingMode == false)
+            if (GameController.instance.trainingMode == false)
             {
                 Instantiate(Obstacle, pos, Quaternion.identity);
             }

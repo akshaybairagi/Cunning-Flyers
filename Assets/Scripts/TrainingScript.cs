@@ -9,7 +9,7 @@ public class TrainingScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        if (GameController.control.trainingMode == true)
+        if (GameController.instance.trainingMode == true)
         {
             //transform.FindChild("Text").GetComponent<Text>().text = "Game";
             //gameObject.SetActive(false);
@@ -19,13 +19,13 @@ public class TrainingScript : MonoBehaviour {
     public void SetTrainingMode()
     {
         //gameObject.SetActive(false);
-        GameController.control.trainingMode = true;
-        GameController.control.isDead = false;
+        GameController.instance.trainingMode = true;
+        GameController.instance.isDead = false;
         SceneManager.LoadScene(sceneName);
     }
 
     public void ResetTrainingMode()
     {
-        GameController.control.trainingMode = false;
+        GameController.instance.trainingMode = false;
     }
 }

@@ -6,7 +6,7 @@ using System.IO;
 
 public class GameController : MonoBehaviour {
 
-    public static GameController control;
+    public static GameController instance;
 
     public int score;
     public int highScore;
@@ -24,12 +24,12 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        if(control == null)
+        if(instance == null)
         {
             DontDestroyOnLoad(gameObject);
-            control = this;
+            instance = this;
         }
-        else if(control != this)
+        else if(instance != this)
         {
             Destroy(gameObject);
         }

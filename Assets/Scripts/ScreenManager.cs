@@ -5,7 +5,7 @@ public class ScreenManager : MonoBehaviour {
 
 	public void ChangeScene(string SceneName)
     {
-        GameController.control.trainingMode = false;
+        GameController.instance.trainingMode = false;
         SceneManager.LoadScene(SceneName);
     }
 }

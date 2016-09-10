@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         LoadPlayerStats();
 
-        if(GameController.control.trainingMode == true)
+        if(GameController.instance.trainingMode == true)
         {
             Speed = 120;
             rb.gravityScale = 0.36f;
@@ -72,13 +72,13 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(GameController.control.isDead == true && GameController.control.contPlay == true)
+        if(GameController.instance.isDead == true && GameController.instance.contPlay == true)
         {
             moveLeft = false;
             moveRight = false;
-            GameController.control.isDead = false;
-            GameController.control.contPlay = false;
-            transform.position = GameController.control.lastPosition;
+            GameController.instance.isDead = false;
+            GameController.instance.contPlay = false;
+            transform.position = GameController.instance.lastPosition;
             transform.rotation = Quaternion.Euler(Vector3.zero);
 
             //gameOverAnimator.SetBool("IsActive", false);
@@ -92,33 +92,38 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameController.control.trainingMode)
+            if (GameController.instance.trainingMode)
             {
-                GameController.control.trainingMode = false;
+                GameController.instance.trainingMode = false;
             }
             SceneManager.LoadScene("StartScreen");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
         {
-            if(GameController.control.isPaused == true)
+            if(GameController.instance.isPaused == true)
             {
-                GameController.control.isPaused = false;
+                GameController.instance.isPaused = false;
                 PauseManager.instance.UnPauseGame();
             }
 
             if(BeginPlay == false)
             {
                 BeginPlay = true;
-                StartPlay(true);
-                traningBtn.SetBool("IsActive", false);
+                StartPlay(true);                
+
                 backBtn.SetBool("IsActive", true);
 
-                if (GameController.control.trainingMode == false)
+                if (GameController.instance.trainingMode == false)
                 {
+                    traningBtn.SetBool("IsActive", true);
                     backBtn.SetBool("IsActive", false);
                 }
-                
+                else
+                {
+                    traningBtn.SetBool("IsActive", false);
+                }                    
+
                 startBtnAnimator.SetBool("Tap", false);
             }
 
@@ -141,7 +146,7 @@ public class PlayerController : MonoBehaviour {
                 animator.SetInteger("AnimNo", 1);
             }
 
-            if(GameController.control.isDead == false && BeginPlay == true)
+            if(GameController.instance.isDead == false && BeginPlay == true)
                 source.PlayOneShot(moveSound, vol);
         }
 
@@ -160,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (GameController.control.isDead == false)
+        if (GameController.instance.isDead == false)
         {
             if (moveRight)
             {
@@ -186,9 +191,9 @@ public class PlayerController : MonoBehaviour {
     //On Collision detection
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle" && GameController.control.isDead == false)
+        if (collision.gameObject.tag == "Obstacle" && GameController.instance.isDead == false)
         {
-            GameController.control.isDead = true;
+            GameController.instance.isDead = true;
 
             rb.AddForce(new Vector2(0, 2f) * Speed);
             rb.constraints = RigidbodyConstraints2D.None;
@@ -198,9 +203,9 @@ public class PlayerController : MonoBehaviour {
             GameOver();
         }
 
-        if (collision.gameObject.tag == "Wall" && GameController.control.isDead == false)
+        if (collision.gameObject.tag == "Wall" && GameController.instance.isDead == false)
         {
-            GameController.control.isDead = true;
+            GameController.instance.isDead = true;
 
             rb.AddForce(new Vector2(0, 2f) * Speed);
             rb.constraints = RigidbodyConstraints2D.None;
@@ -213,7 +218,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Crate" && GameController.control.isDead == false)
+        if (collider.gameObject.tag == "Crate" && GameController.instance.isDead == false)
         {
             float vol = Random.Range(volLowRange, volHighRange);
             source.PlayOneShot(pickUpSound, vol);
@@ -224,7 +229,7 @@ public class PlayerController : MonoBehaviour {
             UpdatePlayerStats();
         }
 
-        if (collider.gameObject.tag == "Training" && GameController.control.isDead == false)
+        if (collider.gameObject.tag == "Training" && GameController.instance.isDead == false)
         {
             collider.gameObject.GetComponent<Animator>().SetBool("IsActive", true);
         }
@@ -232,25 +237,25 @@ public class PlayerController : MonoBehaviour {
 
     private void UpdatePlayerStats()
     {
-        GameController.control.score++;
+        GameController.instance.score++;
 
-        scoreText.text = GameController.control.score.ToString(); 
+        scoreText.text = GameController.instance.score.ToString(); 
     }
 
     private void LoadPlayerStats()
     {
-        GameController.control.score = 0;
-        GameController.control.Load();
+        GameController.instance.score = 0;
+        GameController.instance.Load();
         DisplayPlayerData();
     }
 
     private void DisplayPlayerData()
     {
-        scoreText.text = GameController.control.score.ToString();
-        highScoreText.text = "Best " + GameController.control.highScore.ToString();
+        scoreText.text = GameController.instance.score.ToString();
+        highScoreText.text = "Best " + GameController.instance.highScore.ToString();
 
-        goScoreText.text = GameController.control.score.ToString();
-        goHighText.text = GameController.control.highScore.ToString();
+        goScoreText.text = GameController.instance.score.ToString();
+        goHighText.text = GameController.instance.highScore.ToString();
     }
 
     private void GameOver()
@@ -269,12 +274,12 @@ public class PlayerController : MonoBehaviour {
             nextPos.x = 2f;
         }
 
-        GameController.control.lastPosition = nextPos;
-        GameController.control.isDead = true;
+        GameController.instance.lastPosition = nextPos;
+        GameController.instance.isDead = true;
 
-        if (GameController.control.score > GameController.control.highScore)
+        if (GameController.instance.score > GameController.instance.highScore)
         {
-            GameController.control.highScore = GameController.control.score;
+            GameController.instance.highScore = GameController.instance.score;
 
             statsAnimator.SetBool("IsActive", true);
         }
@@ -287,12 +292,12 @@ public class PlayerController : MonoBehaviour {
 
         DisplayPlayerData(); 
         
-        if(GameController.control.trainingMode)
+        if(GameController.instance.trainingMode)
         {
-            GameController.control.trainingMode = false;
+            GameController.instance.trainingMode = false;
         }
 
-        GameController.control.Save();
+        GameController.instance.Save();
     }
     
 
@@ -312,7 +317,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            if (GameController.control.trainingMode == true)
+            if (GameController.instance.trainingMode == true)
             {
                 Speed = 120;
                 rb.gravityScale = 0.36f;
