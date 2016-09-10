@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour {
     bool moveDown = false;
     bool applyMoveForce = false;
 
+    //player animator
+    private Animator animator;
+
     //Audio Clips
     public AudioClip pickUpSound;
     public AudioClip hitSound;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         LoadPlayerStats();
         UIManager.instance.UpdatePlayerStats();
     }
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour {
                     moveLeft = false;
                     moveDown = false;
                     flip();
+                    animator.SetInteger("AnimNo", 1);
                 }
                 else
                 {
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour {
                     moveLeft = true;
                     moveDown = false;
                     flip();
+                    animator.SetInteger("AnimNo", 1);
                 }
 
                 source.PlayOneShot(moveSound, vol);
@@ -71,6 +77,7 @@ public class PlayerController : MonoBehaviour {
                 moveLeft = false;
                 moveDown = true;
                 applyMoveForce = true;
+                animator.SetInteger("AnimNo", 0);
             }
         }
          
