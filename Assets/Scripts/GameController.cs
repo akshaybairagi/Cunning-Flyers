@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 // Game States
 public enum GameState
@@ -25,12 +26,12 @@ public class GameController : MonoBehaviour {
     public GameState lastState;
 
     //Time Since last state changed
-    float lastStateChange = 0.0f;
-    
+    float lastStateChange = 0.0f;    
 
     public int score;
     public int highScore;
-    public string fileName = "/playerInfo.dat";
+
+    private string fileName = "/playerInfo.dat";
 
     // Use this for initialization
     void Awake ()
@@ -65,12 +66,22 @@ public class GameController : MonoBehaviour {
 
                 break;
 
+            case GameState.Splash:
+
+                Scene scene = SceneManager.GetActiveScene();
+
+                if (scene.name == "GameScene")
+                {
+                    SetCurrentState(GameState.PauseBeforeStart);
+                }
+
+                break;
+
             default:
                 break;
         }
     }
     
-
     public void SetCurrentState(GameState state)
     {
         lastState = currentState;

@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
-        LoadPlayerStats();      
+        LoadPlayerStats();
+        UIManager.instance.UpdatePlayerStats();
     }
 
     // Update is called once per frame
@@ -165,6 +166,7 @@ public class PlayerController : MonoBehaviour {
     private void UpdatePlayerStats()
     {
         GameController.instance.score++;
+        UIManager.instance.UpdatePlayerStats();
     }
 
     private void LoadPlayerStats()
@@ -184,6 +186,8 @@ public class PlayerController : MonoBehaviour {
         }
 
         GameController.instance.Save();
+
+        UIManager.instance.UpdatePlayerStats();
     }
 
     void setGameState()
