@@ -426,8 +426,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 308}
-  m_SizeDelta: {x: 0, y: 135}
+  m_AnchoredPosition: {x: 0, y: 527}
+  m_SizeDelta: {x: 0, y: 149}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &201173234
 MonoBehaviour:
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.25882354, g: 1, b: 0.8039216, a: 0.797}
+  m_Color: {r: 0.25882354, g: 1, b: 0.8039216, a: 0.903}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2879,7 +2879,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 51f01d5d7709a6142b370963c1ee269d, type: 3}
     m_FontSize: 24
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 80
@@ -2889,7 +2889,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game Over
+  m_Text: GAME OVER
 --- !u!222 &1696169250
 CanvasRenderer:
   m_ObjectHideFlags: 0

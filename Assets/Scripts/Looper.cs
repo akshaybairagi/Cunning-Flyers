@@ -89,11 +89,11 @@ public class Looper : MonoBehaviour
             //Insert Obstacles
             if (randomNo == 0)
             {
-                pos = new Vector3(defaultPos, -stepLength * i - 10.5f, 0);
+                pos = new Vector3(defaultPos, -stepLength * i - 14.5f, 0);
             }
             else
             {
-                pos = new Vector3(-defaultPos, -stepLength * i - 10.5f, 0);
+                pos = new Vector3(-defaultPos, -stepLength * i - 14.5f, 0);
             }
 
             if (GameController.instance.currentState == GameState.Training)
