@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour {
     public void UpdatePlayerStats()
     {
         scoreText.text = GameController.instance.score.ToString();
-        highScoreText.text = GameController.instance.highScore.ToString();
+        highScoreText.text = "Best " + GameController.instance.highScore.ToString();
     }
 
     public void MenuController(GameState state)
