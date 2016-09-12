@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour {
                 menuPanel.SetBool("IsActive", true);
 
                 if (GameController.instance.score == GameController.instance.highScore
-                        && GameController.instance.highScore > 5)
+                        && GameController.instance.highScore >= 2)
                 {
                     goHighScoreText.text = GameController.instance.score.ToString();
                     statsPanel.SetBool("IsActive", true);
@@ -83,7 +83,6 @@ public class UIManager : MonoBehaviour {
                 }
                 else
                 {
-                    goScoreText.text = GameController.instance.score.ToString();
                     gameOverPanel.SetBool("IsActive", true);
                 }
                     

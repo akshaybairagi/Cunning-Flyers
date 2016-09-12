@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour {
 
     public int score;
     public int highScore;
+    public long deaths;
 
     private string fileName = "/playerInfo.dat";
 
