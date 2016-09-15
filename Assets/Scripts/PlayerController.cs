@@ -67,18 +67,6 @@ public class PlayerController : MonoBehaviour {
 
                 source.PlayOneShot(moveSound, vol);
             }
-
-            if (SwipeManager.IsSwipingDown())
-            {
-                float vol = Random.Range(volLowRange, volHighRange);
-                source.PlayOneShot(moveSound, vol);
-
-                moveRight = false;
-                moveLeft = false;
-                moveDown = true;
-                applyMoveForce = true;
-                animator.SetInteger("AnimNo", 0);
-            }
         }
          
     }
