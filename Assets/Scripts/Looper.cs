@@ -12,6 +12,7 @@ public class Looper : MonoBehaviour
     public float stepLength = 7f;
     public float defaultPos = 2f;
 
+    public float startOffSet = 10.5f;
     Vector3 newPos;
 
     public Queue<GameObject> cratesPool;
@@ -89,11 +90,11 @@ public class Looper : MonoBehaviour
             //Insert Obstacles
             if (randomNo == 0)
             {
-                pos = new Vector3(defaultPos, -stepLength * i - 14.5f, 0);
+                pos = new Vector3(defaultPos, -stepLength * i - startOffSet, 0);
             }
             else
             {
-                pos = new Vector3(-defaultPos, -stepLength * i - 14.5f, 0);
+                pos = new Vector3(-defaultPos, -stepLength * i - startOffSet, 0);
             }
 
             if (GameController.instance.currentState == GameState.Training)

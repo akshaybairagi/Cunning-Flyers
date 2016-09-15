@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour {
 
     bool moveLeft = false;
     bool moveRight = false;
-    bool moveDown = false;
-    bool applyMoveForce = false;
 
     //player animator
     private Animator animator;
@@ -52,7 +50,6 @@ public class PlayerController : MonoBehaviour {
                 {
                     moveRight = true;
                     moveLeft = false;
-                    moveDown = false;
                     flip();
                     animator.SetInteger("AnimNo", 1);
                 }
@@ -60,7 +57,6 @@ public class PlayerController : MonoBehaviour {
                 {
                     moveRight = false;
                     moveLeft = true;
-                    moveDown = false;
                     flip();
                     animator.SetInteger("AnimNo", 1);
                 }
@@ -84,16 +80,6 @@ public class PlayerController : MonoBehaviour {
             if (moveLeft)
             {
                 rb.AddForce(new Vector2(0.1f, 0) * Speed);
-            }
-
-            if (moveDown)
-            {
-                if (applyMoveForce)
-                {
-                    applyMoveForce = false;
-                    rb.velocity = Vector2.zero;
-                    rb.AddForce(new Vector2(0, -1f) * Speed);
-                }
             }
         }
         

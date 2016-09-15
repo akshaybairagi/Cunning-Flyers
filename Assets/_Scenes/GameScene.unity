@@ -139,6 +139,7 @@ MonoBehaviour:
   numOfObstacles: 6
   stepLength: 7
   defaultPos: 2.5
+  startOffSet: 8.5
 --- !u!61 &664220
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2539,9 +2540,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.0026465654, y: -0.025062561}
+  m_Offset: {x: -0.0026465952, y: -0.025062323}
   serializedVersion: 2
-  m_Size: {x: 0.9729438, y: 0.9166259}
+  m_Size: {x: 0.7689722, y: 0.8486358}
 --- !u!95 &1543823227
 Animator:
   serializedVersion: 3
