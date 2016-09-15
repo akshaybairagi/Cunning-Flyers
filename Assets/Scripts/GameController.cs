@@ -3,6 +3,8 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 //Game States
 public enum GameState
@@ -50,6 +52,12 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
+        // authenticate user:
+        Social.localUser.Authenticate((bool success) => {
+            // handle success or failure
+            Debug.Log(success);
+        });
+
         //Initialize Game State
         SetCurrentState(GameState.Splash);
     }

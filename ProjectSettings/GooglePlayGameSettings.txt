@@ -1,2 +1,10 @@
 lastUpgrade=00934
 proj.pluginVersion=0.9.34
+proj.AppId=553438698280
+and.BundleId=com.rimgames.CunningFlyers
+proj.classDir=Assets
+proj.ConstantsClassName=CunningFlyersResources
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e553438698280%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.rimgames.CunningFlyers%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_first_point%22%3eCgkIqLaR3I0QEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_5_points%22%3eCgkIqLaR3I0QEAIQAg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_10_points%22%3eCgkIqLaR3I0QEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_20_points%22%3eCgkIqLaR3I0QEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_30_points%22%3eCgkIqLaR3I0QEAIQBQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_50_points%22%3eCgkIqLaR3I0QEAIQBw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_100_points%22%3eCgkIqLaR3I0QEAIQCA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_150_points%22%3eCgkIqLaR3I0QEAIQCQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_200_points%22%3eCgkIqLaR3I0QEAIQCg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_global_scoreboard%22%3eCgkIqLaR3I0QEAIQBg%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=
+proj.requireGPlus=false
+android.SetupDone=true

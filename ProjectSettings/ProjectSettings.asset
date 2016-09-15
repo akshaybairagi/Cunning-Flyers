@@ -164,8 +164,8 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: E:/Apps/3rimgames.Repo/Vault/Keystore/user.keystore
+  AndroidKeyaliasName: games
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
@@ -179,7 +179,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
+      m_Icon: {fileID: 2800000, guid: f78182fac715eca4885e41f71cd9c36c, type: 3}
       m_Width: 128
       m_Height: 128
   - m_BuildTarget: Android
