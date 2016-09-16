@@ -4,6 +4,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
 
+using GooglePlayGames;
+
 //Game States
 public enum GameState
 {
@@ -28,11 +30,13 @@ public class GameController : MonoBehaviour {
     //Time Since last state changed
     float lastStateChange = 0.0f;    
 
-    public int score;
-    public int highScore;
-    public long deaths;
+    public long score;
+    public long highScore;
 
     private string fileName = "/playerInfo.dat";
+
+    //Google Game Services
+    public bool IsUserAuthenticated = false;
 
     // Use this for initialization
     void Awake ()
@@ -41,6 +45,9 @@ public class GameController : MonoBehaviour {
         {
             DontDestroyOnLoad(gameObject);
             instance = this;
+
+            PlayGamesPlatform.DebugLogEnabled = true;
+            PlayGamesPlatform.Activate();
         }
         else if(instance != this)
         {
@@ -52,6 +59,17 @@ public class GameController : MonoBehaviour {
     {
         //Initialize Game State
         SetCurrentState(GameState.Splash);
+        // authenticate user:
+        Social.localUser.Authenticate((bool success) => {
+            // handle success or failure
+            if(success == true)
+            {
+                IsUserAuthenticated = true;
+            }
+
+            Debug.Log(success);
+        });
+
     }
 
     void Update()
@@ -119,6 +137,14 @@ public class GameController : MonoBehaviour {
     //Save data to binary file
     public void Save()
     {
+        // post score 12345 to leaderboard ID "Cfji293fjsie_QA")
+        if(IsUserAuthenticated == true)
+        {
+            Social.ReportScore(score, CunningFlyersResources.leaderboard_global_scoreboard,(bool success) => {
+                // handle success or failure
+            });
+        }        
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + fileName);
 
@@ -155,5 +181,5 @@ public class GameController : MonoBehaviour {
 [Serializable]
 class PlayerData
 {
-    public int highScore;
+    public long highScore;
 }

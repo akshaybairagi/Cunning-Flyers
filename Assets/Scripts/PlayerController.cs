@@ -160,7 +160,6 @@ public class PlayerController : MonoBehaviour {
         UIManager.instance.UpdatePlayerStats();
         GameController.instance.SetCurrentState(GameState.Gameover);
         UIManager.instance.MenuController(GameState.Gameover);
-
     }
 
     void setGameState()
