@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Text: 'This game is created by 3RIMGAMES.
 
 
-    We are an independent game studio making small and fun arcade games.'
+    We are an indie game studio making small and fun arcade games.'
 --- !u!222 &192663050
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -495,7 +495,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1716280388}
   highScoreText: {fileID: 1535423104}
-  goScoreText: {fileID: 0}
   goHighScoreText: {fileID: 2064989032}
   startBtnAnimator: {fileID: 259582256}
   backBtn: {fileID: 852987737}
@@ -699,7 +698,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!114 &235661139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3566,7 +3565,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
 --- !u!50 &1543823225
 Rigidbody2D:
   serializedVersion: 2
@@ -4615,7 +4614,7 @@ RectTransform:
   - {fileID: 852987734}
   - {fileID: 1027435736}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
