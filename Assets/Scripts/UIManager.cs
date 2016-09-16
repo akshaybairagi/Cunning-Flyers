@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour {
     public Text highScoreText;
 
     //GameoverPanel and Stats Panel
-    public Text goScoreText;
     public Text goHighScoreText;
 
 
@@ -26,6 +25,9 @@ public class UIManager : MonoBehaviour {
     public Animator menuPanel;
     public Animator gameOverPanel;
     public Animator statsPanel;
+
+    //Settings Panel
+    public GameObject settingsPanel; 
 
     // Use this for initialization
     void Awake()
@@ -73,6 +75,7 @@ public class UIManager : MonoBehaviour {
             case GameState.Gameover:
 
                 menuPanel.SetBool("IsActive", true);
+                settingsPanel.SetActive(false);
 
                 if (GameController.instance.score == GameController.instance.highScore
                         && GameController.instance.highScore >= 2)
@@ -86,6 +89,11 @@ public class UIManager : MonoBehaviour {
                     gameOverPanel.SetBool("IsActive", true);
                 }
                     
+                break;
+
+            case GameState.Settings:
+                menuPanel.SetBool("IsActive", false);
+                settingsPanel.SetActive(true);
                 break;
 
             default:

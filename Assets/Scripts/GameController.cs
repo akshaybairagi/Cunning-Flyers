@@ -15,7 +15,9 @@ public enum GameState
     Play,
     Pause,Gameover,
     Restart,
-    Escape
+    Escape,
+    Settings,
+    GameServices
 }
 
 public class GameController : MonoBehaviour {
