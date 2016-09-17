@@ -68,6 +68,10 @@ public class GameController : MonoBehaviour {
             {
                 IsUserAuthenticated = true;
             }
+            else
+            {
+                IsUserAuthenticated = false;
+            }
         });
 
     }

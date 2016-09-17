@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   signOutBtn: {fileID: 545720719}
+  signOutText: {fileID: 1212810189}
 --- !u!1 &259582252
 GameObject:
   m_ObjectHideFlags: 0

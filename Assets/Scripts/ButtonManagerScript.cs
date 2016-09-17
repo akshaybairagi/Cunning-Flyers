@@ -6,6 +6,7 @@ using GooglePlayGames;
 public class ButtonManagerScript : MonoBehaviour {
 
     public Button signOutBtn;
+    public Text signOutText;
 
     string subject = "Subject text";
     string body = "Actual text (Link)";
@@ -85,6 +86,7 @@ public class ButtonManagerScript : MonoBehaviour {
         {
             // sign out
             PlayGamesPlatform.Instance.SignOut();
+            signOutText.text = "sign in";
         }
         else
         {
@@ -93,6 +95,12 @@ public class ButtonManagerScript : MonoBehaviour {
                 if (success == true)
                 {
                     GameController.instance.IsUserAuthenticated = true;
+                    signOutText.text = "sign out";
+                }
+                else
+                {
+                    GameController.instance.IsUserAuthenticated = false;
+                    signOutText.text = "sign in";
                 }
             });
         }
