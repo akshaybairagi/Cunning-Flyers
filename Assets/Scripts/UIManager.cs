@@ -27,7 +27,10 @@ public class UIManager : MonoBehaviour {
     public Animator statsPanel;
 
     //Settings Panel
-    public GameObject settingsPanel; 
+    public GameObject settingsPanel;
+
+    //Start Tutorial Animation
+    public GameObject tapToStart;
 
     // Use this for initialization
     void Awake()
@@ -58,11 +61,13 @@ public class UIManager : MonoBehaviour {
         {
             case GameState.PauseBeforeStart:
                     traningPanel.SetBool("IsActive", true);
+                    tapToStart.SetActive(true);
                 break;
 
             case GameState.Training:
                 traningPanel.SetBool("IsActive", false);
                 backBtn.SetBool("IsActive", true);
+                tapToStart.SetActive(false);
                 break;
 
             case GameState.TrainingBack:
@@ -70,6 +75,7 @@ public class UIManager : MonoBehaviour {
 
             case GameState.Play:
                 traningPanel.SetBool("IsActive", false);
+                tapToStart.SetActive(false);
                 break;
 
             case GameState.Gameover:
