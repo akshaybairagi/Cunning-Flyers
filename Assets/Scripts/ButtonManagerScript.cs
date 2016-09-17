@@ -86,10 +86,14 @@ public class ButtonManagerScript : MonoBehaviour {
         {
             // sign out
             PlayGamesPlatform.Instance.SignOut();
+            GameController.instance.IsUserAuthenticated = false;
             signOutText.text = "sign in";
         }
         else
         {
+            PlayGamesPlatform.DebugLogEnabled = true;
+            PlayGamesPlatform.Activate();
+
             Social.localUser.Authenticate((bool success) => {
                 // handle success or failure
                 if (success == true)
