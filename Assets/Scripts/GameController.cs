@@ -68,8 +68,6 @@ public class GameController : MonoBehaviour {
             {
                 IsUserAuthenticated = true;
             }
-
-            Debug.Log(success);
         });
 
     }
