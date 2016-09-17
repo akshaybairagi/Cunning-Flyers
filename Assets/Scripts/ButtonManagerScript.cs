@@ -5,7 +5,7 @@ public class ButtonManagerScript : MonoBehaviour {
     // show leaderboard UI
     public void ShowLeaderboardUI()
     {
-        if (GameController.instance.IsUserAuthenticated == true)
+        //if (GameController.instance.IsUserAuthenticated == true)
             Social.ShowLeaderboardUI();
     }
 
