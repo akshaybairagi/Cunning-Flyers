@@ -46,10 +46,7 @@ public class GameController : MonoBehaviour {
         if(instance == null)
         {
             DontDestroyOnLoad(gameObject);
-            instance = this;
-
-            PlayGamesPlatform.DebugLogEnabled = true;
-            PlayGamesPlatform.Activate();
+            instance = this;            
         }
         else if(instance != this)
         {
@@ -61,6 +58,9 @@ public class GameController : MonoBehaviour {
     {
         //Initialize Game State
         SetCurrentState(GameState.Splash);
+        //Activate Google Play Games
+        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
         // authenticate user:
         Social.localUser.Authenticate((bool success) => {
             // handle success or failure
