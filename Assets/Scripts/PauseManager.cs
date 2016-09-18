@@ -8,7 +8,9 @@ public class PauseManager : MonoBehaviour {
     {
         if (pauseStatus == true)
         {
-            PauseGame();
+            if(GameController.instance.currentState == GameState.Play
+                    || GameController.instance.currentState == GameState.Training)
+                PauseGame();
         }
     }
 
