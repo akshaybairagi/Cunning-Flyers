@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 using System.Collections;
 using GooglePlayGames;
+using UnityEngine.SceneManagement;
 
 public class ButtonManagerScript : MonoBehaviour {
 
@@ -72,7 +74,6 @@ public class ButtonManagerScript : MonoBehaviour {
         UIManager.instance.MenuController(GameState.Settings);
     }
 
-
     //Exit Settings Panel
     public void ExitSettingsUI()
     {
@@ -110,5 +111,39 @@ public class ButtonManagerScript : MonoBehaviour {
             });
         }
         
+    }
+
+    //Show Ads - Save Me Button
+    public void ShowAds()
+    {
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show("rewardedVideo", new ShowOptions() { resultCallback = HandleAdCallback });
+        }
+    }
+
+    //Admanger Callback
+    private void HandleAdCallback(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                Debug.Log("Ad Finished");
+                ContinueGame();
+                break;
+
+            case ShowResult.Skipped:
+                Debug.Log("Ad Skipped");
+                break;
+
+            case ShowResult.Failed:
+                Debug.Log("Ad Failed");
+                break;
+        }
+    }
+
+    private void ContinueGame()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 }
