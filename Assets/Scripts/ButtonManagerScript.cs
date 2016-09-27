@@ -94,7 +94,7 @@ public class ButtonManagerScript : MonoBehaviour {
         }
         else
         {
-            PlayGamesPlatform.DebugLogEnabled = true;
+            PlayGamesPlatform.DebugLogEnabled = false;
             PlayGamesPlatform.Activate();
 
             Social.localUser.Authenticate((bool success) => {

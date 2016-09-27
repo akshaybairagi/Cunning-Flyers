@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour {
         //Initialize Game State
         SetCurrentState(GameState.Splash);
         //Activate Google Play Games
-        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.DebugLogEnabled = false;
         PlayGamesPlatform.Activate();
         // authenticate user:
         Social.localUser.Authenticate((bool success) => {
