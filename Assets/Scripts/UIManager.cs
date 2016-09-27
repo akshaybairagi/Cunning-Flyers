@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class UIManager : MonoBehaviour {
 
@@ -28,6 +29,9 @@ public class UIManager : MonoBehaviour {
 
     //Settings Panel
     public GameObject settingsPanel;
+
+    //Save Me Panel
+    public GameObject saveMePanel;
 
     //Start Tutorial Animation
     public GameObject tapToStart;
@@ -94,6 +98,11 @@ public class UIManager : MonoBehaviour {
                 {
                     gameOverPanel.SetBool("IsActive", true);
                 }
+
+                if (Advertisement.IsReady())
+                    saveMePanel.SetActive(true);
+                else
+                    saveMePanel.SetActive(false);
                     
                 break;
 

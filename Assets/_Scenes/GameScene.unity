@@ -503,6 +503,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 384003602}
   statsPanel: {fileID: 740899517}
   settingsPanel: {fileID: 1027435735}
+  saveMePanel: {fileID: 508520012}
   tapToStart: {fileID: 259582252}
 --- !u!1 &201173232
 GameObject:

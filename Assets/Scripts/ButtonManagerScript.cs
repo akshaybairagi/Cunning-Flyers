@@ -128,7 +128,6 @@ public class ButtonManagerScript : MonoBehaviour {
         switch (result)
         {
             case ShowResult.Finished:
-                Debug.Log("Ad Finished");
                 ContinueGame();
                 break;
 
