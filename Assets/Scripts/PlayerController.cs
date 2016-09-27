@@ -168,7 +168,8 @@ public class PlayerController : MonoBehaviour {
         //Checking Eligiblilty for Video Ads
         if(Advertisement.IsReady())
         {
-            if (GameController.instance.contGameCount < GameController.instance.maxLife)
+            if (GameController.instance.contGameCount < GameController.instance.maxLife
+                    && GameController.instance.score > 4)
             {
                 UIManager.instance.enableVideoAds = true;
             }
