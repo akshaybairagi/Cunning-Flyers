@@ -110,8 +110,7 @@ public class ButtonManagerScript : MonoBehaviour {
                     signOutText.text = "sign in";
                 }
             });
-        }
-        
+        }        
     }
 
     //Show Ads - Save Me Button
