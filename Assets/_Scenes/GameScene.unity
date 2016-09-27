@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8293ce3b4225ed44a49d8c9fc40bbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: StartScreen
+  retryScene: GameScene
   signOutBtn: {fileID: 545720719}
   signOutText: {fileID: 1212810189}
 --- !u!1 &259582252
@@ -4377,7 +4377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d847762ca2e9b8479a9cb66fd6681eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: StartScreen
+  sceneName: 537461727453637265656e
 --- !u!1 &1744111153
 GameObject:
   m_ObjectHideFlags: 0

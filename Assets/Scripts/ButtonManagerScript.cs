@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManagerScript : MonoBehaviour {
 
-    public string sceneName = "StartScreen";
+    public string retryScene = "StartScreen";
     public Button signOutBtn;
     public Text signOutText;
 
@@ -150,6 +150,6 @@ public class ButtonManagerScript : MonoBehaviour {
 
     public void RetryGame()
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(retryScene);
     }
 }
