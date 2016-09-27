@@ -137,7 +137,9 @@ public class PlayerController : MonoBehaviour {
 
     private void LoadPlayerStats()
     {
-        GameController.instance.score = 0;
+        if(GameController.instance.continueGame == false)
+            GameController.instance.score = 0;
+
         GameController.instance.Load();
     }
 

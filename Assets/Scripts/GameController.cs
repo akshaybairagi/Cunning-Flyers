@@ -3,7 +3,6 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
-
 using GooglePlayGames;
 
 //Game States
@@ -26,7 +25,7 @@ public class GameController : MonoBehaviour {
 
     //Current Game State
     public GameState currentState;
-
+    //last game state
     public GameState lastState;
 
     //Time Since last state changed
@@ -35,10 +34,16 @@ public class GameController : MonoBehaviour {
     public long score;
     public long highScore;
 
+    //filename to saved on phone
     private string fileName = "/playerInfo.dat";
 
     //Google Game Services
     public bool IsUserAuthenticated = false;
+
+    //Continue Game - Video Ads
+    public int contGameCount = 0;
+    public int maxLife = 2;
+    public bool continueGame = false;
 
     // Use this for initialization
     void Awake ()
