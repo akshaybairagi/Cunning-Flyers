@@ -130,7 +130,7 @@ public class ButtonManagerScript : MonoBehaviour {
         {
             case ShowResult.Finished:
                 Debug.Log("Ad Finished");
-                //ContinueGame();
+                ContinueGame();
                 break;
 
             case ShowResult.Skipped:
@@ -143,13 +143,17 @@ public class ButtonManagerScript : MonoBehaviour {
         }
     }
 
+    //Continue game after successful Video ad session
     private void ContinueGame()
     {
+        GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
         SceneManager.LoadScene("GameScene");
     }
 
+    //Retry button in the game menu
     public void RetryGame()
     {
+        GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
         SceneManager.LoadScene(retryScene);
     }
 }
