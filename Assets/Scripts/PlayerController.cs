@@ -138,7 +138,14 @@ public class PlayerController : MonoBehaviour {
 
     private void LoadPlayerStats()
     {
-        GameController.instance.score = 0;
+        if (GameController.instance.continueGame == false)
+        {
+            GameController.instance.score = 0;
+            GameController.instance.contGameCount = 0;
+        }
+
+        GameController.instance.continueGame = false;
+
         GameController.instance.Load();
     }
 
@@ -153,8 +160,27 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Save only when in Playing State
-        if(GameController.instance.currentState == GameState.Play )
+        if (GameController.instance.currentState == GameState.Play)
+        {
             GameController.instance.Save();
+        }
+        
+        //Checking Eligiblilty for Video Ads
+        if(Advertisement.IsReady())
+        {
+            if (GameController.instance.contGameCount < GameController.instance.maxLife)
+            {
+                UIManager.instance.enableVideoAds = true;
+            }
+            else
+            {
+                UIManager.instance.enableVideoAds = false;
+            }
+        }
+        else
+        {
+            UIManager.instance.enableVideoAds = false;
+        }
 
         UIManager.instance.UpdatePlayerStats();
         GameController.instance.SetCurrentState(GameState.Gameover);

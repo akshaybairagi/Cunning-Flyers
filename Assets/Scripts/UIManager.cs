@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour {
 
     //Save Me Panel
     public GameObject saveMePanel;
+    public bool enableVideoAds = false;
 
     //Start Tutorial Animation
     public GameObject tapToStart;
@@ -97,6 +98,16 @@ public class UIManager : MonoBehaviour {
                 else
                 {
                     gameOverPanel.SetBool("IsActive", true);
+                }
+
+                //Enable Disable Video Ad Option
+                if(enableVideoAds == true)
+                {
+                    saveMePanel.SetActive(true);
+                }
+                else
+                {
+                    saveMePanel.SetActive(false);
                 }
                     
                 break;
