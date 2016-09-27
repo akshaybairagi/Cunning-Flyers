@@ -98,11 +98,6 @@ public class UIManager : MonoBehaviour {
                 {
                     gameOverPanel.SetBool("IsActive", true);
                 }
-
-                if (Advertisement.IsReady())
-                    saveMePanel.SetActive(true);
-                else
-                    saveMePanel.SetActive(false);
                     
                 break;
 

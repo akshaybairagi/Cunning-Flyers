@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Advertisements;
 
 public class PlayerController : MonoBehaviour {
 
@@ -137,9 +138,7 @@ public class PlayerController : MonoBehaviour {
 
     private void LoadPlayerStats()
     {
-        if(GameController.instance.continueGame == false)
-            GameController.instance.score = 0;
-
+        GameController.instance.score = 0;
         GameController.instance.Load();
     }
 

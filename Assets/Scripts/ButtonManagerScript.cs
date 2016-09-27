@@ -144,11 +144,6 @@ public class ButtonManagerScript : MonoBehaviour {
     //Continue game after successful Video ad session
     private void ContinueGame()
     {
-        GameController.instance.contGameCount++;
-
-        if (GameController.instance.contGameCount < GameController.instance.maxLife)
-            GameController.instance.continueGame = true;
-
         GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
         SceneManager.LoadScene("GameScene");
     }
@@ -156,8 +151,6 @@ public class ButtonManagerScript : MonoBehaviour {
     //Retry button in the game menu
     public void RetryGame()
     {
-        GameController.instance.continueGame = false;
-
         GameController.instance.SetCurrentState(GameState.PauseBeforeStart);
         SceneManager.LoadScene(retryScene);
     }
