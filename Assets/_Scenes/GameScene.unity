@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8293ce3b4225ed44a49d8c9fc40bbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: StartScreen
   signOutBtn: {fileID: 545720719}
   signOutText: {fileID: 1212810189}
 --- !u!1 &259582252
@@ -4477,7 +4478,6 @@ GameObject:
   - 222: {fileID: 1751221295}
   - 114: {fileID: 1751221294}
   - 114: {fileID: 1751221293}
-  - 114: {fileID: 1751221296}
   m_Layer: 5
   m_Name: StartBtn
   m_TagString: Untagged
@@ -4542,8 +4542,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1751221296}
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 235661139}
+        m_MethodName: RetryGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4588,18 +4588,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1751221291}
---- !u!114 &1751221296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1751221291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d847762ca2e9b8479a9cb66fd6681eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: StartScreen
 --- !u!1 &1758566306
 GameObject:
   m_ObjectHideFlags: 0

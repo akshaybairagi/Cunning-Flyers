@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManagerScript : MonoBehaviour {
 
+    public string sceneName = "StartScreen";
     public Button signOutBtn;
     public Text signOutText;
 
@@ -129,7 +130,7 @@ public class ButtonManagerScript : MonoBehaviour {
         {
             case ShowResult.Finished:
                 Debug.Log("Ad Finished");
-                ContinueGame();
+                //ContinueGame();
                 break;
 
             case ShowResult.Skipped:
@@ -145,5 +146,10 @@ public class ButtonManagerScript : MonoBehaviour {
     private void ContinueGame()
     {
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
