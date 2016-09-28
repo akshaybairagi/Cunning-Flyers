@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 76eb112cc4fb7fb47be598ee3e06e241
-timeCreated: 1474106502
+guid: 38446ce0b51fe9d41825481b861ffa83
+timeCreated: 1475059021
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -60,8 +60,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 128
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -71,10 +71,10 @@ TextureImporter:
       name: startAnimaton_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 96
         y: 0
-        width: 256
-        height: 128
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
