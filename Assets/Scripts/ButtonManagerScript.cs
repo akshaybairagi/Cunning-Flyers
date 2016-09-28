@@ -65,7 +65,9 @@ public class ButtonManagerScript : MonoBehaviour {
     public void ShowLeaderboardUI()
     {
         //if (GameController.instance.IsUserAuthenticated == true)
-        Social.ShowLeaderboardUI();
+        //Social.ShowLeaderboardUI();
+        // show leaderboard UI
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(CunningFlyersResources.leaderboard_global_scoreboard);
     }
 
     // show Settings UI Panel
