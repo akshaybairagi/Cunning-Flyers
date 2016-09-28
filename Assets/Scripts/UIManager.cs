@@ -30,8 +30,9 @@ public class UIManager : MonoBehaviour {
     //Settings Panel
     public GameObject settingsPanel;
 
-    //Save Me Panel
-    public GameObject saveMePanel;
+    //Save Me Panels
+    public GameObject saveMePanelGo;
+    public GameObject saveMePanelStats;
     public bool enableVideoAds = false;
 
     //Start Tutorial Animation
@@ -103,11 +104,13 @@ public class UIManager : MonoBehaviour {
                 //Enable Disable Video Ad Option
                 if(enableVideoAds == true)
                 {
-                    saveMePanel.SetActive(true);
+                    saveMePanelGo.SetActive(true);
+                    saveMePanelStats.SetActive(true);
                 }
                 else
                 {
-                    saveMePanel.SetActive(false);
+                    saveMePanelGo.SetActive(false);
+                    saveMePanelStats.SetActive(false);
                 }
                     
                 break;
