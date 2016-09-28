@@ -94,19 +94,19 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.rimgames.CunningFlyers
-  bundleVersion: 0.4
+  bundleVersion: 0.5
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   xboxOneDisableKinectGpuReservation: 0
   singlePassStereoRendering: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 4
+  AndroidBundleVersionCode: 5
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   apiCompatibilityLevel: 2
   stripEngineCode: 1
-  iPhoneStrippingLevel: 0
+  iPhoneStrippingLevel: 1
   iPhoneScriptCallOptimization: 0
   iPhoneBuildNumber: 0
   ForceInternetPermission: 0
@@ -168,44 +168,44 @@ PlayerSettings:
   AndroidKeyaliasName: games
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   m_AndroidBanners:
   - width: 320
     height: 180
-    banner: {fileID: 2800000, guid: 58bd708c6150fbc41953e5984b211e07, type: 3}
+    banner: {fileID: 0}
   androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: d6be6ba40bfebaf4d80eb14a8559fb63, type: 3}
+      m_Icon: {fileID: 2800000, guid: 3ae6da06e80f64e45b4b52c6c9738a18, type: 3}
       m_Width: 128
       m_Height: 128
   - m_BuildTarget: Android
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: d6be6ba40bfebaf4d80eb14a8559fb63, type: 3}
+      m_Icon: {fileID: 2800000, guid: a1ff79dad8d5b89449992ec1f92b71e4, type: 3}
       m_Width: 192
       m_Height: 192
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: e2eec186409ef104b85fa8a9e6ac70fb, type: 3}
+      m_Icon: {fileID: 2800000, guid: c0fbf950e3112574eb5c39eef62e0ddc, type: 3}
       m_Width: 144
       m_Height: 144
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: cd8c3d24f8f3ac042978f94eb86170c9, type: 3}
+      m_Icon: {fileID: 2800000, guid: a4b1886b6efaa714ca050e08a37130e8, type: 3}
       m_Width: 96
       m_Height: 96
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: fb27505793aa89c4bb414da69c825af9, type: 3}
+      m_Icon: {fileID: 2800000, guid: d2a88189a70eddb42bc41df3a1647cb9, type: 3}
       m_Width: 72
       m_Height: 72
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 09a5095c47ce5bc4ea6d3a9ed077e60a, type: 3}
+      m_Icon: {fileID: 2800000, guid: af1bddce8ab4950469ee45943bf849b5, type: 3}
       m_Width: 48
       m_Height: 48
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 54aac393149b12344ae8410947f7b906, type: 3}
+      m_Icon: {fileID: 2800000, guid: ded0bf8dc394e75469d9f15385d50ed0, type: 3}
       m_Width: 36
       m_Height: 36
   m_BuildTargetBatching:
