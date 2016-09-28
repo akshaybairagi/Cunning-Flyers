@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour {
     public AudioClip moveSound;
 
     private AudioSource source;
-    private float volLowRange = 0.5f;
-    private float volHighRange = 1.0f;    
+    private float volLowRange = 0.3f;
+    private float volHighRange = 0.8f;    
 
     // Use this for initialization
     void Start () {
