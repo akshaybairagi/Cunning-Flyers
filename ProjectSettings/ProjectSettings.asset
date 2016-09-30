@@ -94,13 +94,13 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.rimgames.CunningFlyers
-  bundleVersion: 0.5
+  bundleVersion: 1.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   xboxOneDisableKinectGpuReservation: 0
   singlePassStereoRendering: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 5
+  AndroidBundleVersionCode: 6
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
