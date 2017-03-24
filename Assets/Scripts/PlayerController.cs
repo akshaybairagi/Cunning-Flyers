@@ -82,7 +82,9 @@ public class PlayerController : MonoBehaviour {
             }
         }
         
+
     }
+
 
     //On Collision detection
     void OnCollisionEnter2D(Collision2D collision)

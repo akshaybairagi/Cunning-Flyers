@@ -78,7 +78,6 @@ public class GameController : MonoBehaviour {
                 IsUserAuthenticated = false;
             }
         });
-
     }
 
     void Update()
@@ -149,7 +148,7 @@ public class GameController : MonoBehaviour {
         // post score 12345 to leaderboard ID "Cfji293fjsie_QA")
         if(IsUserAuthenticated == true)
         {
-            Social.ReportScore(score, CunningFlyersResources.leaderboard_global_scoreboard,(bool success) => {
+            Social.ReportScore(score, CunningFlyersResources.leaderboard_global_scoreboard, (bool success) => {
                 // handle success or failure
             });
         }        

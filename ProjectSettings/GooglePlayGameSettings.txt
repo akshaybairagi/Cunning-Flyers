@@ -1,5 +1,5 @@
-lastUpgrade=00934
-proj.pluginVersion=0.9.34
+lastUpgrade=00936
+proj.pluginVersion=0.9.36
 proj.AppId=553438698280
 and.BundleId=com.rimgames.CunningFlyers
 proj.classDir=Assets
