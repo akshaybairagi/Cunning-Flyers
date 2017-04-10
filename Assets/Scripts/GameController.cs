@@ -1,45 +1,163 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
+using GooglePlayGames;
+
+//Game States
+public enum GameState
+{
+    Splash,
+    PauseBeforeStart,
+    Training,TrainingBack,
+    Play,
+    Pause,Gameover,
+    Restart,
+    Escape,
+    Settings,
+    GameServices
+}
 
 public class GameController : MonoBehaviour {
 
-    public static GameController control;
+    public static GameController instance;    
 
-    public int score;
-    public int highScore;
-    public int coins;
-    public string fileName = "/playerInfo.dat";
+    //Current Game State
+    public GameState currentState;
+    //last game state
+    public GameState lastState;
 
-    public Vector3 lastPosition = Vector3.zero;
+    //Time Since last state changed
+    float lastStateChange = 0.0f;    
 
-    public bool isDead = false;
-    public bool contPlay = false;
+    public long score;
+    public long highScore;
 
-	// Use this for initialization
-	void Awake () {
-        if(control == null)
+    //filename to saved on phone
+    private string fileName = "/playerInfo.dat";
+
+    //Google Game Services
+    public bool IsUserAuthenticated = false;
+
+    //Continue Game - Video Ads
+    public int contGameCount = 0;
+    public int maxLife = 2;
+    public bool continueGame = false;
+
+    // Use this for initialization
+    void Awake ()
+    {
+        if(instance == null)
         {
             DontDestroyOnLoad(gameObject);
-            control = this;
+            instance = this;            
         }
-        else if(control != this)
+        else if(instance != this)
         {
             Destroy(gameObject);
         }
 	}
 
+    void Start()
+    {
+        //Initialize Game State
+        SetCurrentState(GameState.Splash);
+        //Activate Google Play Games
+        PlayGamesPlatform.DebugLogEnabled = false;
+        PlayGamesPlatform.Activate();
+        // authenticate user:
+        Social.localUser.Authenticate((bool success) => {
+            // handle success or failure
+            if(success == true)
+            {
+                IsUserAuthenticated = true;
+            }
+            else
+            {
+                IsUserAuthenticated = false;
+            }
+        });
+    }
+
+    void Update()
+    {
+        //Check for back button on mobile phone 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetCurrentState(GameState.Escape);
+        }
+
+        switch (currentState)
+        {
+            case GameState.PauseBeforeStart:
+                
+                if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
+                {
+                    SetCurrentState(GameState.Play);
+                    UIManager.instance.MenuController(GameState.Play);
+                }
+
+                break;
+
+            case GameState.Splash:
+
+                Scene scene = SceneManager.GetActiveScene();
+
+                if (scene.name == "GameScene")
+                {
+                    SetCurrentState(GameState.PauseBeforeStart);
+                }
+
+                break;
+
+            case GameState.Escape:
+
+                if (lastState == GameState.Play || lastState == GameState.Training)
+                {
+                    SetCurrentState(GameState.Gameover);
+                    UIManager.instance.MenuController(GameState.Gameover);
+                }
+                else
+                {
+                    Application.Quit();
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
+    
+    public void SetCurrentState(GameState state)
+    {
+        lastState = currentState;
+        currentState = state;
+        lastStateChange = Time.time;
+    }
+
+    float GetStateElapsed()
+    {
+        return Time.time - lastStateChange;
+    }
+
     //Save data to binary file
     public void Save()
     {
+        // post score 12345 to leaderboard ID "Cfji293fjsie_QA")
+        if(IsUserAuthenticated == true)
+        {
+            Social.ReportScore(score, CunningFlyersResources.leaderboard_global_scoreboard, (bool success) => {
+                // handle success or failure
+            });
+        }        
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + fileName);
 
         PlayerData data = new PlayerData();
         data.highScore = highScore;
-        data.coins = coins;
 
         bf.Serialize(file, data);
         file.Close();
@@ -57,20 +175,19 @@ public class GameController : MonoBehaviour {
             file.Close();
             
             highScore = data.highScore;
-            coins = data.coins;
         }
     }
 
-    public void ContinuePlay()
+    //On Quiting app delete the instance
+    public void OnApplicationQuit()
     {
-        isDead = true;
-        contPlay = true;
-    }    
+        //instance = null;
+    }
 }
 
+//Saving Game Data to the phone disk
 [Serializable]
 class PlayerData
 {
-    public int highScore;
-    public int coins;
+    public long highScore;
 }
