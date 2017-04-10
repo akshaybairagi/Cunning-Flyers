@@ -3,12 +3,16 @@ using System.Collections.Generic;
 
 public class Looper : MonoBehaviour
 {
-
+    //Gameplay Prefabs
     public GameObject Obstacle;
     public GameObject Crate;
+    public GameObject training_Obstacle;
+
     public int numOfObstacles = 6;
     public float stepLength = 7f;
+    public float defaultPos = 2f;
 
+    public float startOffSet = 10.5f;
     Vector3 newPos;
 
     public Queue<GameObject> cratesPool;
@@ -38,9 +42,9 @@ public class Looper : MonoBehaviour
             newPos.y -= stepLength * numOfObstacles;
 
             if (Random.Range(0, 2) == 0)
-                newPos.x = 2f;
+                newPos.x = defaultPos;
             else
-                newPos.x = -2f;
+                newPos.x = -defaultPos;
 
             //Place the powerUps
             if (cratesPool.Count > 0 && Random.Range(0, 3) > 0)
@@ -50,6 +54,27 @@ public class Looper : MonoBehaviour
 
                 obj.transform.position = GetCratePosition(newPos);
             }
+        }
+
+        if (collider.gameObject.tag == "Training")
+        {
+            newPos.y -= stepLength * numOfObstacles;
+
+            if (Random.Range(0, 2) == 0)
+                newPos.x = defaultPos;
+            else
+                newPos.x = -defaultPos;
+
+            //Place the powerUps
+            if (cratesPool.Count > 0 && Random.Range(0, 3) > 0)
+            {
+                var obj = cratesPool.Dequeue();
+                obj.SetActive(true);
+
+                obj.transform.position = GetCratePosition(newPos);
+            }
+
+            collider.gameObject.GetComponent<Animator>().SetBool("IsActive", false);
         }
 
         collider.transform.position = newPos;
@@ -65,12 +90,19 @@ public class Looper : MonoBehaviour
             //Insert Obstacles
             if (randomNo == 0)
             {
-                pos = new Vector3(2f, -stepLength * i - 10.5f, 0);
-                Instantiate(Obstacle, pos, Quaternion.identity);
+                pos = new Vector3(defaultPos, -stepLength * i - startOffSet, 0);
             }
             else
             {
-                pos = new Vector3(-2f, -stepLength * i - 10.5f, 0);
+                pos = new Vector3(-defaultPos, -stepLength * i - startOffSet, 0);
+            }
+
+            if (GameController.instance.currentState == GameState.Training)
+            {
+                Instantiate(training_Obstacle, pos, Quaternion.identity);
+            }
+            else
+            {
                 Instantiate(Obstacle, pos, Quaternion.identity);
             }
 

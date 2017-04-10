@@ -1,184 +1,225 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class PlayerController : MonoBehaviour {
 
+    //Player Movement & Physics
     private Rigidbody2D rb;
 
     public float Speed = 1f;
-
     public Looper looper;
 
     bool moveLeft = false;
     bool moveRight = false;
 
-    public Text scoreText;
-    public Text highScoreText;
-    public Text coinText;
+    //player animator
+    private Animator animator;
 
-    public Text goScoreText;
-    public Text goHighText;
+    //Audio Clips
+    public AudioClip pickUpSound;
+    public AudioClip hitSound;
+    public AudioClip moveSound;
 
-    public Animator gameOverAnimator;
-    public Animator menuAnimator;
+    private AudioSource source;
+    private float volLowRange = 0.3f;
+    private float volHighRange = 0.8f;    
 
     // Use this for initialization
     void Start () {
+        source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         LoadPlayerStats();
+        UIManager.instance.UpdatePlayerStats();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameController.control.isDead == true && GameController.control.contPlay == true)
+        setGameState();
+
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
         {
-            moveLeft = false;
-            moveRight = false;
-            GameController.control.isDead = false;
-            GameController.control.contPlay = false;
-            transform.position = GameController.control.lastPosition;
-            transform.rotation = Quaternion.Euler(Vector3.zero);
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
+            {
+                float vol = Random.Range(volLowRange, volHighRange);
 
-            gameOverAnimator.SetBool("IsActive", false);
-            menuAnimator.SetBool("IsActive", false);
+                if (moveLeft)
+                {
+                    moveRight = true;
+                    moveLeft = false;
+                    flip();
+                    animator.SetInteger("AnimNo", 1);
+                }
+                else
+                {
+                    moveRight = false;
+                    moveLeft = true;
+                    flip();
+                    animator.SetInteger("AnimNo", 1);
+                }
 
-            rb.gravityScale = 0.6f;
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
+                source.PlayOneShot(moveSound, vol);
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetMouseButtonDown(0))
-        {
-            if (moveLeft)
-            {
-                moveRight = true;
-                moveLeft = false;
-            }
-            else
-            {
-                moveRight = false;
-                moveLeft = true;
-            }
-        }        
+         
     }
 
     void FixedUpdate()
     {
-        if (GameController.control.isDead == false)
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
         {
             if (moveRight)
             {
                 rb.AddForce(new Vector2(-0.1f, 0) * Speed);
             }
+
             if (moveLeft)
             {
                 rb.AddForce(new Vector2(0.1f, 0) * Speed);
             }
         }
+        
+
     }
+
 
     //On Collision detection
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle" && GameController.control.isDead == false)
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
         {
-            GameController.control.isDead = true;
+            if (collision.gameObject.tag == "Obstacle")
+            {
+                rb.AddForce(new Vector2(0, 2f) * Speed);
+                rb.constraints = RigidbodyConstraints2D.None;
+                rb.AddTorque(2f);
+                rb.gravityScale = 1;
 
-            rb.AddForce(new Vector2(0, 2f) * Speed);
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.AddTorque(2f);
-            rb.gravityScale = 1;
+                GameOver();
+            }
 
-            GameOver();
-        }
+            if (collision.gameObject.tag == "Wall")
+            {
+                rb.AddForce(new Vector2(0, 2f) * Speed);
+                rb.constraints = RigidbodyConstraints2D.None;
+                rb.AddTorque(2f);
+                rb.gravityScale = 1;
 
-        if (collision.gameObject.tag == "Wall" && GameController.control.isDead == false)
-        {
-            GameController.control.isDead = true;
-
-            rb.AddForce(new Vector2(0, 2f) * Speed);
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.AddTorque(2f);
-            rb.gravityScale = 1;
-
-            GameOver();
+                GameOver();
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Crate" && GameController.control.isDead == false)
+        if (GameController.instance.currentState == GameState.Play
+            || GameController.instance.currentState == GameState.Training)
         {
-            looper.cratesPool.Enqueue(collider.gameObject);
-            collider.gameObject.SetActive(false);
+            if (collider.gameObject.tag == "Crate")
+            {
+                float vol = Random.Range(volLowRange, volHighRange);
+                source.PlayOneShot(pickUpSound, vol);
 
-            UpdatePlayerStats();
-        }
+                looper.cratesPool.Enqueue(collider.gameObject);
+                collider.gameObject.SetActive(false);
+
+                UpdatePlayerStats();
+            }
+        }        
     }
 
     private void UpdatePlayerStats()
     {
-        GameController.control.score++;
-        GameController.control.coins++;
-
-        scoreText.text = GameController.control.score.ToString();
-        coinText.text = GameController.control.coins.ToString() + "$";  
+        GameController.instance.score++;
+        UIManager.instance.UpdatePlayerStats();
     }
 
     private void LoadPlayerStats()
     {
-        GameController.control.score = 0;
-        GameController.control.Load();
-        DisplayPlayerData();
-    }
+        if (GameController.instance.continueGame == false)
+        {
+            GameController.instance.score = 0;
+            GameController.instance.contGameCount = 0;
+        }
 
-    private void DisplayPlayerData()
-    {
-        scoreText.text = GameController.control.score.ToString();
-        highScoreText.text = "High " + GameController.control.highScore.ToString();
-        coinText.text = GameController.control.coins.ToString() + "$";
+        GameController.instance.continueGame = false;
+
+        GameController.instance.Load();
     }
 
     private void GameOver()
     {
-        Vector3 nextPos = transform.position;
+        float vol = Random.Range(volLowRange, volHighRange);
+        source.PlayOneShot(hitSound, vol);
 
-        if(nextPos.x > 0)
+        if (GameController.instance.score > GameController.instance.highScore)
         {
-            nextPos.x = -2f;
+            GameController.instance.highScore = GameController.instance.score;
+        }
+
+        //Save only when in Playing State
+        if (GameController.instance.currentState == GameState.Play)
+        {
+            GameController.instance.Save();
+        }
+        
+        //Checking Eligiblilty for Video Ads
+        if(Advertisement.IsReady())
+        {
+            if (GameController.instance.contGameCount < GameController.instance.maxLife
+                    && GameController.instance.score > 4)
+            {
+                UIManager.instance.enableVideoAds = true;
+            }
+            else
+            {
+                UIManager.instance.enableVideoAds = false;
+            }
         }
         else
         {
-            nextPos.x = 2f;
+            UIManager.instance.enableVideoAds = false;
         }
 
-        GameController.control.lastPosition = nextPos;
-        GameController.control.isDead = true;
+        UIManager.instance.UpdatePlayerStats();
+        GameController.instance.SetCurrentState(GameState.Gameover);
+        UIManager.instance.MenuController(GameState.Gameover);
+    }
 
-        if (GameController.control.score > GameController.control.highScore)
+    void setGameState()
+    {
+        switch (GameController.instance.currentState)
         {
-            GameController.control.highScore = GameController.control.score;
+            case GameState.Training:
+                Speed = 120;
+                rb.gravityScale = 0.36f;
+                break;
+
+            case GameState.Play:
+                Speed = 200;
+                rb.gravityScale = 0.6f;
+                break;
+
+            case GameState.PauseBeforeStart:
+                Speed = 0;
+                rb.gravityScale = 0f;
+                break;
+
+            default:
+                Speed = 200;
+                rb.gravityScale = 1f;
+                break;
         }
-
-        DisplayPlayerData();
-
-        goScoreText.text = GameController.control.score.ToString();
-        goHighText.text = GameController.control.highScore.ToString();
-
-        gameOverAnimator.SetBool("IsActive", true);
-        menuAnimator.SetBool("IsActive", true);
-
-        GameController.control.Save();
     }
 
-    private void PauseGame()
+    void flip()
     {
-        Time.timeScale = 0;
-    }
-
-    private void UnPauseGame()
-    {
-        Time.timeScale = 1;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
